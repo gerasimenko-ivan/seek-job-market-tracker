@@ -1,0 +1,19 @@
+{
+  "name": "seek-job-market-tracker",
+  "version": "1.0.0",
+  "description": "Collect data from seek co nz about number of jobs with certain params",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerasimenko-ivan/seek-job-market-tracker.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gerasimenko-ivan/seek-job-market-tracker/issues"
+  },
+  "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme"
+}
