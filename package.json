@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/gerasimenko-ivan/seek-job-market-tracker/issues"
   },
-  "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme"
+  "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
 }
