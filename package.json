@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Collect data from seek co nz about number of jobs with certain params",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gerasimenko-ivan/seek-job-market-tracker.git"
@@ -18,6 +16,7 @@
   "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
+    "@types/node": "^26.5.1",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
   }
