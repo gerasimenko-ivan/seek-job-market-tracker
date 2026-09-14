@@ -40,7 +40,12 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+
+# IDE
 .idea/
+
+# TypeScript build output
+dist/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
