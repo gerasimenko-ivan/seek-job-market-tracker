@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('SEEK job search returns results', async ({ page }) => {
-    await page.goto('https://www.seek.co.nz/', {
+    await page.goto('https://www.seek.co.nz/jobs', {
         waitUntil: 'domcontentloaded'
     });
 
