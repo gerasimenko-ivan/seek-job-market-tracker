@@ -23,4 +23,14 @@ test('SEEK job search returns results', async ({ page }) => {
         await page.locator('[data-automation="totalJobsMessage"]').textContent();
 
     console.log(`Total Jobs Message: ${totalJobsMessage}`);
+
+    if (totalJobsMessage === null) {
+        throw new Error('Total jobs message was not found');
+    }
+
+    const totalJobs = parseInt(totalJobsMessage.replace(/,/g, ''), 10);
+
+    console.log(`Total Jobs: ${totalJobs}`);
+
+    expect(`${totalJobs.toLocaleString('en-NZ')} jobs`).toBe(totalJobsMessage);
 });
