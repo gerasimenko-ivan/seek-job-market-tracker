@@ -15,5 +15,8 @@ test('SEEK job search returns results', async ({ page }) => {
 
     await expect(page).toHaveURL(/qa-automation-jobs/);
 
-    console.log('SEEK search page loaded');
+    const totalJobsMessage =
+        await page.locator('[data-automation="totalJobsMessage"]').textContent();
+
+    console.log(`Total Jobs Message: ${totalJobsMessage}`);
 });
