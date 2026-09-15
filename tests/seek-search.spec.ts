@@ -10,6 +10,10 @@ test('SEEK job search returns results', async ({ page }) => {
         .fill('qa automation');
 
     await page
+        .locator('input[data-automation="SearchBar__Where"]')
+        .fill('Auckland');
+
+    await page
         .locator('button[data-automation="searchButton"]')
         .click();
 
