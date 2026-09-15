@@ -5,8 +5,13 @@ test('SEEK job search returns results', async ({ page }) => {
         waitUntil: 'domcontentloaded'
     });
 
-    await page.locator('input[name="keywords"]').fill('qa automation');
-    await page.getByRole('button', { name: /search/i }).click();
+    await page
+        .locator('[data-automation="searchKeywordsField"] input')
+        .fill('qa automation');
+
+    await page
+        .locator('button[data-automation="searchButton"]')
+        .click();
 
     await expect(page).toHaveURL(/qa-automation-jobs/);
 
