@@ -1,22 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { searchJobs } from "../src/search-jobs";
 
 test('SEEK job search returns results', async ({ page }) => {
-    await page.goto('https://www.seek.co.nz/jobs', {
-        waitUntil: 'domcontentloaded'
-    });
+    await searchJobs({ page, keywords: ['qa', 'automation'], location: 'All Auckland' });
 
-    await page
-        .locator('[data-automation="searchKeywordsField"] input')
-        .fill('qa automation');
-
-    await page
-        .locator('input[data-automation="SearchBar__Where"]')
-        .fill('All Auckland');
-
-    await page
-        .locator('button[data-automation="searchButton"]')
-        .click();
-
+    // assertions
     await expect(page).toHaveURL(/qa-automation-jobs/);
 
     console.log(`URL: ${page.url()}`);
