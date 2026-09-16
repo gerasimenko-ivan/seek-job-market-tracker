@@ -23,6 +23,7 @@ coverage/
 npm-debug.log*
 
 # Playwright
+screenshots/
 test-results/
 playwright-report/
 /blob-report/
