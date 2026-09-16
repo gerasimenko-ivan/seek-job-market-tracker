@@ -11,7 +11,7 @@ test('SEEK job search returns results', async ({ page }) => {
 
     await page
         .locator('input[data-automation="SearchBar__Where"]')
-        .fill('Auckland');
+        .fill('All Auckland');
 
     await page
         .locator('button[data-automation="searchButton"]')
