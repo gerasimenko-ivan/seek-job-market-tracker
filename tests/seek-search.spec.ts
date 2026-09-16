@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { searchJobs } from "../src/search-jobs";
+import { searchJobs } from '../src/search-jobs';
+import { getSearchPageState } from '../src/search-page-state';
 
 test('SEEK job search returns results', async ({ page }) => {
     await searchJobs({ page, keywords: ['qa', 'automation'], location: 'All Auckland' });
@@ -7,28 +8,15 @@ test('SEEK job search returns results', async ({ page }) => {
     // assertions
     await expect(page).toHaveURL(/qa-automation-jobs/);
 
-    console.log(`URL: ${page.url()}`);
-    console.log(
-        'Keywords input:',
-        await page.locator('[data-automation="searchKeywordsField"] input').inputValue()
-    );
-    console.log(
-        'Where input:',
-        await page.locator('input[data-automation="SearchBar__Where"]').inputValue()
-    );
+    const searchPageState = await getSearchPageState({ page, printLogs: true });
 
-    const totalJobsMessage =
-        await page.locator('[data-automation="totalJobsMessage"]').textContent();
-
-    console.log(`Total Jobs Message: ${totalJobsMessage}`);
-
-    if (totalJobsMessage === null) {
+    if (searchPageState.totalJobsMessage === null) {
         throw new Error('Total jobs message was not found');
     }
 
-    const totalJobs = parseInt(totalJobsMessage.replace(/,/g, ''), 10);
+    const totalJobs = parseInt(searchPageState.totalJobsMessage.replace(/,/g, ''), 10);
 
     console.log(`Total Jobs: ${totalJobs}`);
 
-    expect(`${totalJobs.toLocaleString('en-NZ')} jobs`).toBe(totalJobsMessage);
+    expect(`${totalJobs.toLocaleString('en-NZ')} jobs`).toBe(searchPageState.totalJobsMessage);
 });
