@@ -1,5 +1,16 @@
 import { Page, Locator } from '@playwright/test';
 
+export enum JOB_TYPE {
+    FULL_TIME = 'Full time',
+    PART_TIME = 'Part time',
+}
+
+export interface SearchParams {
+    keywords: string[];
+    location: string;
+    type: JOB_TYPE;
+}
+
 export class SeekSearchPage {
     readonly page: Page;
 
@@ -54,5 +65,23 @@ export class SeekSearchPage {
         await this.page.goto('https://www.seek.co.nz/jobs', {
             waitUntil: 'domcontentloaded',
         });
+    }
+
+    async search(params: SearchParams): Promise<void> {
+        const { keywords, location, type } = params;
+
+        await this.goto();
+
+        await this.keywords.fill(keywords.join(' '));
+        await this.location.fill(location);
+
+        await this.seekButton.click();
+
+        // open work type
+        await this.workTypeButton.click();
+        // select work type
+        await this.workTypeOption(type).click();
+        // close work type
+        await this.refineBarClose.click();
     }
 }

@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
-import { JOB_TYPE, searchJobs } from '../src/search-jobs';
 import { getSearchPageState } from '../src/search-page-state';
 import { parseJobsCount } from '../src/parse-jobs-count';
+import { JOB_TYPE, SearchParams, SeekSearchPage } from '../src/pages/seek-search-page';
 
 test('SEEK job search returns results', async ({ page }) => {
-    const searches = [
+    const searches: SearchParams[] = [
         {
             keywords: ['typescript'],
             location: 'All Auckland',
@@ -27,13 +27,10 @@ test('SEEK job search returns results', async ({ page }) => {
         },
     ];
 
+    const seekSearch = new SeekSearchPage(page);
+
     for (const search of searches) {
-        await searchJobs({
-            page,
-            keywords: search.keywords,
-            location: search.location,
-            type: search.type,
-        });
+        await seekSearch.search(search);
 
         const urlSubfolder = `${search.keywords.join('-')}-jobs`;
 
