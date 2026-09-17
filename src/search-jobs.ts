@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { SEEK_LOCATORS } from './seek-locators';
 
 export enum JOB_TYPE {
     FULL_TIME = 'Full time',
@@ -19,26 +20,20 @@ export async function searchJobs(param: SearchJobsRequest): Promise<void> {
         waitUntil: 'domcontentloaded',
     });
 
-    await page
-        .locator('[data-automation="searchKeywordsField"] input')
-        .fill(keywords.join(' '));
+    await page.locator(SEEK_LOCATORS.keywords).fill(keywords.join(' '));
+    await page.locator(SEEK_LOCATORS.location).fill(location);
 
-    await page
-        .locator('input[data-automation="SearchBar__Where"]')
-        .fill(location);
-
-    await page.locator('button[data-automation="searchButton"]').click();
+    await page.locator(SEEK_LOCATORS.seekButton).click();
 
     // open work type — there are duplicate controls, use the last one
-    const workTypeButton = `(//label[@data-automation="toggleWorkTypePanel"])//span[.='Type' or .='Full time' or .='Part time' or .='2 work types']`;
-    await page.locator(workTypeButton).last().click();
+    await page.locator(SEEK_LOCATORS.workTypeButton).last().click();
 
     // select work type
-    await page.locator(`//*[@aria-label="${type}"]`).last().click();
+    await page.locator(SEEK_LOCATORS.workTypeOption(type)).last().click();
 
     // close work type
     await page
-        .locator(`//label[@data-automation="refineBarToggleClose"]`)
+        .locator(SEEK_LOCATORS.refineBarClose)
         .last()
         .click();
 }

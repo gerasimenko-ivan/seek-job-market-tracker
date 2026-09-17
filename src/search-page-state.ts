@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { SEEK_LOCATORS } from './seek-locators';
 
 interface GetSearchPageStateParams {
     page: Page;
@@ -13,13 +14,15 @@ interface SearchPageState {
 }
 
 export async function getSearchPageState(param: GetSearchPageStateParams): Promise<SearchPageState> {
-    const url = param.page.url();
-    const keywords = await param.page.locator('[data-automation="searchKeywordsField"] input').inputValue();
-    const location = await param.page.locator('input[data-automation="SearchBar__Where"]').inputValue();
-    const totalJobsMessage =
-        await param.page.locator('[data-automation="totalJobsMessage"]').textContent();
+    const { page, printLogs } = param;
 
-    if (param.printLogs) {
+    const url = page.url();
+    const keywords = await page.locator(SEEK_LOCATORS.keywords).inputValue();
+    const location = await page.locator(SEEK_LOCATORS.location).inputValue();
+    const totalJobsMessage =
+        await page.locator(SEEK_LOCATORS.totalJobsMessage).textContent();
+
+    if (printLogs) {
         console.log(`URL: ${url}`);
         console.log('Keywords input:', keywords);
         console.log('Where input:', location);
