@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { searchJobs } from '../src/search-jobs';
+import { JOB_TYPE, searchJobs } from '../src/search-jobs';
 import { getSearchPageState } from '../src/search-page-state';
 import { parseJobsCount } from '../src/parse-jobs-count';
 
@@ -8,18 +8,22 @@ test('SEEK job search returns results', async ({ page }) => {
         {
             keywords: ['typescript'],
             location: 'All Auckland',
+            type: JOB_TYPE.FULL_TIME,
         },
         {
             keywords: ['playwright'],
             location: 'All Auckland',
+            type: JOB_TYPE.FULL_TIME,
         },
         {
             keywords: ['typescript', 'playwright'],
             location: 'All Auckland',
+            type: JOB_TYPE.FULL_TIME,
         },
         {
             keywords: ['qa', 'automation'],
             location: 'All Auckland',
+            type: JOB_TYPE.FULL_TIME,
         },
     ];
 
@@ -28,6 +32,7 @@ test('SEEK job search returns results', async ({ page }) => {
             page,
             keywords: search.keywords,
             location: search.location,
+            type: search.type,
         });
 
         const urlSubfolder = `${search.keywords.join('-')}-jobs`;
@@ -41,8 +46,9 @@ test('SEEK job search returns results', async ({ page }) => {
 
         const totalJobs = parseJobsCount(searchPageState.totalJobsMessage);
 
-        expect(`${totalJobs.toLocaleString('en-NZ')} jobs`)
-            .toBe(searchPageState.totalJobsMessage);
+        expect(
+            `${totalJobs.toLocaleString('en-NZ')} job${totalJobs === 1 ? '' : 's'}`,
+        ).toBe(searchPageState.totalJobsMessage);
 
         console.log('--------------');
     }
