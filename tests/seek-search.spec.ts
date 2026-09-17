@@ -4,14 +4,46 @@ import { getSearchPageState } from '../src/search-page-state';
 import { parseJobsCount } from '../src/parse-jobs-count';
 
 test('SEEK job search returns results', async ({ page }) => {
-    await searchJobs({ page, keywords: ['qa', 'automation'], location: 'All Auckland' });
+    const searches = [
+        {
+            keywords: ['typescript'],
+            location: 'All Auckland',
+        },
+        {
+            keywords: ['playwright'],
+            location: 'All Auckland',
+        },
+        {
+            keywords: ['typescript', 'playwright'],
+            location: 'All Auckland',
+        },
+        {
+            keywords: ['qa', 'automation'],
+            location: 'All Auckland',
+        },
+    ];
 
-    // assertions
-    await expect(page).toHaveURL(/qa-automation-jobs/);
+    for (const search of searches) {
+        await searchJobs({
+            page,
+            keywords: search.keywords,
+            location: search.location,
+        });
 
-    const searchPageState = await getSearchPageState({ page, printLogs: true });
+        const urlSubfolder = `${search.keywords.join('-')}-jobs`;
 
-    const totalJobs = parseJobsCount(searchPageState.totalJobsMessage);
+        await expect(page).toHaveURL(new RegExp(urlSubfolder));
 
-    expect(`${totalJobs.toLocaleString('en-NZ')} jobs`).toBe(searchPageState.totalJobsMessage);
+        const searchPageState = await getSearchPageState({
+            page,
+            printLogs: true,
+        });
+
+        const totalJobs = parseJobsCount(searchPageState.totalJobsMessage);
+
+        expect(`${totalJobs.toLocaleString('en-NZ')} jobs`)
+            .toBe(searchPageState.totalJobsMessage);
+
+        console.log('--------------');
+    }
 });
