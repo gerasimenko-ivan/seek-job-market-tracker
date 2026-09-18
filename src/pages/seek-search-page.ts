@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 
 export enum JOB_TYPE {
@@ -89,12 +89,26 @@ export class SeekSearchPage {
 
         await this.seekButton.click();
 
-        await takeScreenshot({ page: this.page, name: 'seek-clicked' });
+        // await this.workTypeButton.click();
+        // BEGIN workaround: SEEK may ignore Type-filter clicks while the search UI is settling.
+        let isPanelVisible = false;
+        for (let i = 0; i < 10; i++) {
+            await this.workTypeButton.click();
+            isPanelVisible = await this.workTypeOption(type).isVisible({
+                timeout: 0,
+            });
+            await this.page.waitForTimeout(500);
+            console.log(`${i} - ${isPanelVisible}`);
+            if (isPanelVisible) {
+                break;
+            }
+        }
+        expect(isPanelVisible).toBe(true);
+        // END workaround
 
-        // open work type
-        await this.workTypeButton.click();
         // select work type
         await this.workTypeOption(type).click();
+
         // close work type
         await this.refineBarClose.click();
 
