@@ -1,6 +1,7 @@
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 import { JOB_TYPE, SearchParams, SeekSearchPage } from '../src/pages/seek-search-page';
 import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
+import { expectSearchUrl } from '../src/expects/expect-search-url';
 
 test('SEEK job search returns results', async ({ page }) => {
     const searches: SearchParams[] = [
@@ -31,9 +32,7 @@ test('SEEK job search returns results', async ({ page }) => {
     for (const search of searches) {
         await seekSearch.search(search);
 
-        const urlSubfolder = `${search.keywords.join('-')}-jobs`;
-
-        await expect(page).toHaveURL(new RegExp(urlSubfolder));
+        expectSearchUrl({ page, search });
 
         const searchPageState = await seekSearch.getSearchState({
             printLogs: true,
