@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import { takeScreenshot } from '../utils/screenshot';
 
 export enum JOB_TYPE {
     FULL_TIME = 'Full time',
@@ -88,12 +89,16 @@ export class SeekSearchPage {
 
         await this.seekButton.click();
 
+        await takeScreenshot({ page: this.page, name: 'seek-clicked' });
+
         // open work type
         await this.workTypeButton.click();
         // select work type
         await this.workTypeOption(type).click();
         // close work type
         await this.refineBarClose.click();
+
+        await takeScreenshot({ page: this.page, name: 'filters-applied' });
     }
 
     async getSearchState(params?: GetSearchPageStateParams): Promise<SearchPageState> {
