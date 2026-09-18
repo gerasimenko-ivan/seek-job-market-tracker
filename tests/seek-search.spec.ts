@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
-import { JOB_TYPE, SearchParams, SeekSearchPage } from '../src/pages/seek-search-page';
+import { SeekSearchPage } from '../src/pages/seek-search-page';
 import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
 import { expectSearchUrl } from '../src/expects/expect-search-url';
+import { JOB_TYPE, SearchParams } from '../src/types/seek-search';
 
 test('SEEK job search returns results', async ({ page }) => {
     const searches: SearchParams[] = [
