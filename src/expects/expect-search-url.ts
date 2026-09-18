@@ -1,5 +1,5 @@
-import { SearchParams } from '../pages/seek-search-page';
 import { expect, Page } from '@playwright/test';
+import { SearchParams } from '../types/seek-search';
 
 export interface ExpectSearchUrlParams {
     page: Page;

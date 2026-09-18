@@ -1,18 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 import { parseJobsCount } from '../parse-jobs-count';
-import { SearchPageState } from '../types/seek-search';
-
-export enum JOB_TYPE {
-    FULL_TIME = 'Full time',
-    PART_TIME = 'Part time',
-}
-
-export interface SearchParams {
-    keywords: string[];
-    location: string;
-    type: JOB_TYPE;
-}
+import { SearchPageState, SearchParams } from '../types/seek-search';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;
