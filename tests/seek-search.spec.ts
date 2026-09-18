@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { getSearchPageState } from '../src/search-page-state';
 import { parseJobsCount } from '../src/parse-jobs-count';
 import { JOB_TYPE, SearchParams, SeekSearchPage } from '../src/pages/seek-search-page';
 
@@ -36,10 +35,7 @@ test('SEEK job search returns results', async ({ page }) => {
 
         await expect(page).toHaveURL(new RegExp(urlSubfolder));
 
-        const searchPageState = await getSearchPageState({
-            page,
-            printLogs: true,
-        });
+        const searchPageState = await seekSearch.getSearchState({ printLogs: true });
 
         const totalJobs = parseJobsCount(searchPageState.totalJobsMessage);
 

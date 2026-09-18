@@ -11,6 +11,17 @@ export interface SearchParams {
     type: JOB_TYPE;
 }
 
+export interface GetSearchPageStateParams {
+    printLogs?: boolean;
+}
+
+export interface SearchPageState {
+    url: string;
+    keywords: string;
+    location: string;
+    totalJobsMessage: string | null;
+}
+
 export class SeekSearchPage {
     readonly page: Page;
 
@@ -83,5 +94,26 @@ export class SeekSearchPage {
         await this.workTypeOption(type).click();
         // close work type
         await this.refineBarClose.click();
+    }
+
+    async getSearchState(params?: GetSearchPageStateParams): Promise<SearchPageState> {
+        const url = this.page.url();
+        const keywords = await this.keywords.inputValue();
+        const location = await this.location.inputValue();
+        const totalJobsMessage = await this.totalJobsMessage.textContent();
+
+        if (params?.printLogs) {
+            console.log(`URL: ${url}`);
+            console.log('Keywords input:', keywords);
+            console.log('Where input:', location);
+            console.log(`Total Jobs Message: ${totalJobsMessage}`);
+        }
+
+        return {
+            url,
+            keywords,
+            location,
+            totalJobsMessage,
+        };
     }
 }
