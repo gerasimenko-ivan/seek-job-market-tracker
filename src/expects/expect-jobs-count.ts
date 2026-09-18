@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { SearchPageState } from '../pages/seek-search-page';
+import { SearchPageState } from '../types/seek-search';
 
 export type ExpectJobsCountMessage = Pick<
     SearchPageState,
