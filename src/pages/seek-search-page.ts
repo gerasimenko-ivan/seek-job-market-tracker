@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
+import { parseJobsCount } from '../parse-jobs-count';
 
 export enum JOB_TYPE {
     FULL_TIME = 'Full time',
@@ -21,6 +22,7 @@ export interface SearchPageState {
     keywords: string;
     location: string;
     totalJobsMessage: string | null;
+    totalJobs: number;
 }
 
 export class SeekSearchPage {
@@ -120,12 +122,14 @@ export class SeekSearchPage {
         const keywords = await this.keywords.inputValue();
         const location = await this.location.inputValue();
         const totalJobsMessage = await this.totalJobsMessage.textContent();
+        const totalJobs = parseJobsCount(totalJobsMessage);
 
         if (params?.printLogs) {
             console.log(`URL: ${url}`);
             console.log('Keywords input:', keywords);
             console.log('Where input:', location);
             console.log(`Total Jobs Message: ${totalJobsMessage}`);
+            console.log(`Total Jobs: ${totalJobs}`);
         }
 
         return {
@@ -133,6 +137,7 @@ export class SeekSearchPage {
             keywords,
             location,
             totalJobsMessage,
+            totalJobs,
         };
     }
 }
