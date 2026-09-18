@@ -1,0 +1,18 @@
+import { expect } from '@playwright/test';
+import { SearchPageState } from '../pages/seek-search-page';
+
+export type ExpectJobsCountMessage = Pick<
+    SearchPageState,
+    'totalJobsMessage' | 'totalJobs'
+>;
+
+export function expectJobsCountMessage(param: ExpectJobsCountMessage): void {
+    const { totalJobsMessage, totalJobs } = param;
+
+    expect(
+        totalJobsMessage,
+        'Total jobs message should contain the correctly formatted job count',
+    ).toBe(
+        `${totalJobs.toLocaleString('en-NZ')} job${totalJobs === 1 ? '' : 's'}`,
+    );
+}

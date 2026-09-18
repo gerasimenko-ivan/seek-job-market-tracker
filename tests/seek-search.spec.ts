@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { parseJobsCount } from '../src/parse-jobs-count';
 import { JOB_TYPE, SearchParams, SeekSearchPage } from '../src/pages/seek-search-page';
+import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
 
 test('SEEK job search returns results', async ({ page }) => {
     const searches: SearchParams[] = [
@@ -35,13 +35,11 @@ test('SEEK job search returns results', async ({ page }) => {
 
         await expect(page).toHaveURL(new RegExp(urlSubfolder));
 
-        const searchPageState = await seekSearch.getSearchState({ printLogs: true });
+        const searchPageState = await seekSearch.getSearchState({
+            printLogs: true,
+        });
 
-        const totalJobs = parseJobsCount(searchPageState.totalJobsMessage);
-
-        expect(
-            `${totalJobs.toLocaleString('en-NZ')} job${totalJobs === 1 ? '' : 's'}`,
-        ).toBe(searchPageState.totalJobsMessage);
+        expectJobsCountMessage(searchPageState);
 
         console.log('--------------');
     }
