@@ -8,8 +8,9 @@ import {
     JOB_TYPE,
     SearchParams
 } from '../src/types/seek-search';
+import { takeScreenshot } from '../src/utils/screenshot';
 
-test('SEEK job search returns results', async ({ page }) => {
+test('SEEK job search returns multi results', async ({ page }) => {
     const searches: SearchParams[] = [
         {
             keywords: ['typescript'],
@@ -51,5 +52,7 @@ test('SEEK job search returns results', async ({ page }) => {
         expectJobsCountMessage(searchPageState);
 
         console.log('--------------');
+
+        await takeScreenshot({ page, name: 'final' });
     }
 });
