@@ -5,6 +5,7 @@ export interface ForUrlParams {
 
 export function forUrl(param: ForUrlParams): string {
     let url = param.text
+        .replaceAll(',', '')
         .replaceAll('&', '')
         .replace(/ +(?= )/g, '') // remove double spaces
         .replaceAll(' ', '-');
