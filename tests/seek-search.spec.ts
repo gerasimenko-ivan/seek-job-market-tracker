@@ -42,7 +42,7 @@ test('SEEK job search returns results', async ({ page }) => {
     for (const search of searches) {
         await seekSearch.search(search);
 
-        expectSearchUrl({ page, search });
+        await expectSearchUrl({ page, search });
 
         const searchPageState = await seekSearch.getSearchState({
             printLogs: true,

@@ -1,19 +1,26 @@
 import { expect, Page } from '@playwright/test';
 import { SearchParams } from '../types/seek-search';
+import { forUrl } from '../helpers/string-helper';
 
 export interface ExpectSearchUrlParams {
     page: Page;
     search: SearchParams;
 }
 
-export function expectSearchUrl(params: ExpectSearchUrlParams): void {
+export async function expectSearchUrl(params: ExpectSearchUrlParams): Promise<void> {
     const { page, search } = params;
-    const { keywords, location, type } = search;
+    const { keywords, location, type, classification } = search;
 
     const urlSubfolder =
-        `${keywords.join('-')}-jobs/` +
-        `in-${location.replaceAll(' ', '-')}/` +
-        type.toLowerCase().replaceAll(' ', '-');
+        `${keywords.join('-')}-jobs` +
+        (classification
+            ? (`-in-${forUrl({ text: classification.category, lowerCase: true })}`
+                + (classification.subcategory
+                    ? `/${forUrl({ text: classification.subcategory, lowerCase: true })}`
+                    : ''))
+            : '') +
+        `/in-${forUrl({ text: location })}/` +
+        forUrl({ text: type, lowerCase: true });
 
-    expect(page).toHaveURL(new RegExp(urlSubfolder));
+    await expect(page).toHaveURL(new RegExp(urlSubfolder));
 }
