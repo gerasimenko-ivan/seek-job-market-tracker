@@ -41,11 +41,9 @@ export class SeekSearchPage {
             'button[data-automation="searchButton"]',
         );
 
-        this.workTypeButton = page
-            .locator(
-                `(//label[@data-automation="toggleWorkTypePanel"])//span[.='Type' or .='Full time' or .='Part time' or .='2 work types']`,
-            )
-            .last();
+        this.workTypeButton = page.getByTestId('toggleWorkTypePanel').last();
+
+        this.refineBarClose = page.getByTestId('refineBarToggleClose').last();
 
         this.refineBarClose = page
             .locator(`//label[@data-automation="refineBarToggleClose"]`)
