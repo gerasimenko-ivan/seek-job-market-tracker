@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 import { parseJobsCount } from '../parse-jobs-count';
-import { SearchPageState, SearchParams } from '../types/seek-search';
+import { JOB_TYPE, SearchPageState, SearchParams } from '../types/seek-search';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;
@@ -73,6 +73,12 @@ export class SeekSearchPage {
 
         await this.seekButton.click();
 
+        await this.selectWorkType(type);
+
+        await takeScreenshot({ page: this.page, name: 'filters-applied' });
+    }
+
+    async selectWorkType(type: JOB_TYPE): Promise<void> {
         // await this.workTypeButton.click();
         // BEGIN workaround: SEEK may ignore Type-filter clicks while the search UI is settling.
         let isPanelVisible = false;
@@ -95,11 +101,11 @@ export class SeekSearchPage {
 
         // close work type
         await this.refineBarClose.click();
-
-        await takeScreenshot({ page: this.page, name: 'filters-applied' });
     }
 
-    async getSearchState(params?: GetSearchPageStateParams): Promise<SearchPageState> {
+    async getSearchState(
+        params?: GetSearchPageStateParams,
+    ): Promise<SearchPageState> {
         const url = this.page.url();
         const keywords = await this.keywords.inputValue();
         const location = await this.location.inputValue();
