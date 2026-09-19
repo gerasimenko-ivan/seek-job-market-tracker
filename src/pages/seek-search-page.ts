@@ -29,17 +29,12 @@ export class SeekSearchPage {
     constructor(page: Page) {
         this.page = page;
 
-        this.keywords = page.locator(
-            '[data-automation="searchKeywordsField"] input',
-        );
+        this.keywords = page.getByTestId('searchKeywordsField')
+            .locator('input').last();
 
-        this.location = page.locator(
-            'input[data-automation="SearchBar__Where"]',
-        );
+        this.location = page.getByTestId('SearchBar__Where');
 
-        this.seekButton = page.locator(
-            'button[data-automation="searchButton"]',
-        );
+        this.seekButton = page.getByTestId('searchButton');
 
         this.workTypeButton = page.getByTestId('toggleWorkTypePanel').last();
 
