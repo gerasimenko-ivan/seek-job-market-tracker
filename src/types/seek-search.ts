@@ -23,7 +23,7 @@ export enum JOB_HEALTH_SUBCATEGORY {
 
 export interface JobClassification {
     category: JOB_CATEGORY;
-    subcategory:
+    subcategory?:
         JOB_ICT_SUBCATEGORY | JOB_MTL_SUBCATEGORY | JOB_HEALTH_SUBCATEGORY;
 }
 
