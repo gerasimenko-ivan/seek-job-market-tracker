@@ -2,7 +2,12 @@ import { test } from '@playwright/test';
 import { SeekSearchPage } from '../src/pages/seek-search-page';
 import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
 import { expectSearchUrl } from '../src/expects/expect-search-url';
-import { JOB_TYPE, SearchParams } from '../src/types/seek-search';
+import {
+    JOB_CATEGORY,
+    JOB_ICT_SUBCATEGORY,
+    JOB_TYPE,
+    SearchParams
+} from '../src/types/seek-search';
 
 test('SEEK job search returns results', async ({ page }) => {
     const searches: SearchParams[] = [
@@ -25,6 +30,10 @@ test('SEEK job search returns results', async ({ page }) => {
             keywords: ['qa', 'automation'],
             location: 'All Auckland',
             type: JOB_TYPE.FULL_TIME,
+            classification: {
+                category: JOB_CATEGORY.ICT,
+                subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
+            }
         },
     ];
 
