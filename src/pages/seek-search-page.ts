@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 import { parseJobsCount } from '../parse-jobs-count';
-import { JOB_TYPE, SearchPageState, SearchParams } from '../types/seek-search';
+import { JOB_TYPE, JobClassification, SearchPageState, SearchParams } from '../types/seek-search';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;
@@ -23,6 +23,11 @@ export class SeekSearchPage {
     readonly workTypeOption = (type: string) =>
         this.page.locator(`//*[@aria-label="${type}"]`).last();
 
+    readonly classificationButton: Locator;
+
+    readonly classificationOption = (category: string) =>
+        this.page.getByTestId('item-text').getByText(category).last();
+
     // results
     readonly totalJobsMessage: Locator;
 
@@ -40,8 +45,8 @@ export class SeekSearchPage {
 
         this.refineBarClose = page.getByTestId('refineBarToggleClose').last();
 
-        this.refineBarClose = page
-            .locator(`//label[@data-automation="refineBarToggleClose"]`)
+        this.classificationButton = page
+            .getByTestId('toggleClassificationPanel')
             .last();
 
         this.totalJobsMessage = page.locator(
@@ -57,7 +62,7 @@ export class SeekSearchPage {
     }
 
     async search(params: SearchParams): Promise<void> {
-        const { keywords, location, type } = params;
+        const { keywords, location, type, classification } = params;
 
         await this.goto();
 
@@ -67,6 +72,10 @@ export class SeekSearchPage {
         await this.seekButton.click();
 
         await this.selectWorkType(type);
+
+        if (classification) {
+            await this.selectClassification(classification);
+        }
 
         await takeScreenshot({ page: this.page, name: 'filters-applied' });
     }
@@ -96,12 +105,33 @@ export class SeekSearchPage {
         await this.refineBarClose.click();
     }
 
+    async selectClassification(
+        classification: JobClassification,
+    ): Promise<void> {
+        await this.classificationButton.click();
+
+        await this.classificationOption(classification.category).click();
+
+        if (classification.subcategory) {
+            await this.classificationOption(classification.subcategory).click();
+        }
+
+        await this.refineBarClose.click({ position: { x: 0, y: 0 } });
+
+        await takeScreenshot({
+            page: this.page,
+            name: 'classification',
+        });
+    }
+
     async getSearchState(
         params?: GetSearchPageStateParams,
     ): Promise<SearchPageState> {
         const url = this.page.url();
         const keywords = await this.keywords.inputValue();
         const location = await this.location.inputValue();
+        const classification = await this.classificationButton.textContent();
+        const type = await this.workTypeButton.textContent();
         const totalJobsMessage = await this.totalJobsMessage.textContent();
         const totalJobs = parseJobsCount(totalJobsMessage);
 
@@ -109,6 +139,8 @@ export class SeekSearchPage {
             console.log(`URL: ${url}`);
             console.log('Keywords input:', keywords);
             console.log('Where input:', location);
+            console.log('Classification:', classification);
+            console.log('Type:', type);
             console.log(`Total Jobs Message: ${totalJobsMessage}`);
             console.log(`Total Jobs: ${totalJobs}`);
         }
@@ -117,6 +149,8 @@ export class SeekSearchPage {
             url,
             keywords,
             location,
+            classification,
+            type,
             totalJobsMessage,
             totalJobs,
         };

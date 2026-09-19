@@ -50,6 +50,8 @@ export interface SearchPageState {
     url: string;
     keywords: string;
     location: string;
+    classification: string | null;
+    type: string | null;
     totalJobsMessage: string | null;
     totalJobs: number;
 }
