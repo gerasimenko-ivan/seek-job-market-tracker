@@ -166,6 +166,10 @@ export class SeekSearchPage {
     async selectSalary(param: SalaryParams): Promise<void> {
         const { period, from, to } = param;
 
+        if (!(from || to)) {
+            throw new Error(`No salary range specified. If salary.period=${period} is specified at least one of params salary.from or salary.to must be specified`);
+        }
+
         await this.salaryButton.click();
         await this.salaryPeriod(period).click();
 
