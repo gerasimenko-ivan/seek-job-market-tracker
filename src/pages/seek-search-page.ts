@@ -56,9 +56,7 @@ export class SeekSearchPage {
             .getByTestId('toggleClassificationPanel')
             .last();
 
-        this.totalJobsMessage = page.locator(
-            '[data-automation="totalJobsMessage"]',
-        );
+        this.totalJobsMessage = page.getByTestId('totalJobsMessage');
     }
 
     // actions
