@@ -4,6 +4,10 @@ import { parseJobsCount } from '../parse-jobs-count';
 import {
     JOB_TYPE,
     JobClassification,
+    SALARY_ANNUALLY,
+    SALARY_HOURLY,
+    SALARY_PERIOD,
+    SalaryParams,
     SearchPageState,
     SearchParams,
 } from '../types/seek-search';
@@ -33,6 +37,28 @@ export class SeekSearchPage {
     readonly classificationOption = (category: string) =>
         this.page.getByTestId('item-text').getByText(category).last();
 
+    readonly salaryButton: Locator;
+
+    readonly salaryPeriod = (period: SALARY_PERIOD) =>
+        this.page.getByTestId('salaryType').getByText(period).last();
+
+    readonly salaryFromButton: Locator;
+    readonly salaryToButton: Locator;
+
+    readonly salaryRangeFromItem = (from: SALARY_ANNUALLY | SALARY_HOURLY) =>
+        this.page
+            .getByTestId('refineSalaryRangeFrom')
+            .locator('label')
+            .filter({ hasText: from })
+            .last();
+
+    readonly salaryRangeToItem = (to: SALARY_ANNUALLY | SALARY_HOURLY) =>
+        this.page
+            .getByTestId('refineSalaryRangeTo')
+            .locator('label')
+            .filter({ hasText: to })
+            .last();
+
     // results
     readonly totalJobsMessage: Locator;
 
@@ -57,6 +83,10 @@ export class SeekSearchPage {
             .last();
 
         this.totalJobsMessage = page.getByTestId('totalJobsMessage');
+
+        this.salaryButton = page.getByTestId('toggleSalaryRangePanel').last();
+        this.salaryFromButton = page.getByTestId('salaryFieldFrom').last();
+        this.salaryToButton = page.getByTestId('salaryFieldTo').last();
     }
 
     // actions
@@ -67,7 +97,7 @@ export class SeekSearchPage {
     }
 
     async search(params: SearchParams): Promise<void> {
-        const { keywords, location, type, classification } = params;
+        const { keywords, location, type, classification, salary } = params;
 
         await this.goto();
 
@@ -80,6 +110,10 @@ export class SeekSearchPage {
 
         if (classification) {
             await this.selectClassification(classification);
+        }
+
+        if (salary) {
+            await this.selectSalary(salary);
         }
 
         await takeScreenshot({ page: this.page, name: 'filters-applied' });
@@ -129,12 +163,32 @@ export class SeekSearchPage {
         });
     }
 
+    async selectSalary(param: SalaryParams): Promise<void> {
+        const { period, from, to } = param;
+
+        await this.salaryButton.click();
+        await this.salaryPeriod(period).click();
+
+        if (from) {
+            await this.salaryFromButton.click();
+            await this.salaryRangeFromItem(from).click();
+        }
+
+        if (to) {
+            await this.salaryToButton.click();
+            await this.salaryRangeToItem(to).click();
+        }
+
+        await this.refineBarClose.click({ position: { x: 0, y: 0 } });
+    }
+
     async getSearchState(
         params?: GetSearchPageStateParams,
     ): Promise<SearchPageState> {
         const url = this.page.url();
         const keywords = await this.keywords.inputValue();
         const location = await this.location.inputValue();
+        const salary = await this.salaryButton.textContent();
         const classification = await this.classificationButton.textContent();
         const type = await this.workTypeButton.textContent();
         const totalJobsMessage = await this.totalJobsMessage.textContent();
@@ -144,6 +198,7 @@ export class SeekSearchPage {
             console.log(`URL: ${url}`);
             console.log('Keywords input:', keywords);
             console.log('Where input:', location);
+            console.log('Salary:', salary);
             console.log('Classification:', classification);
             console.log('Type:', type);
             console.log(`Total Jobs Message: ${totalJobsMessage}`);
@@ -154,6 +209,7 @@ export class SeekSearchPage {
             url,
             keywords,
             location,
+            salary,
             classification,
             type,
             totalJobsMessage,

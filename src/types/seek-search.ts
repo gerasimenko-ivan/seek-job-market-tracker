@@ -82,6 +82,7 @@ export interface SearchPageState {
     url: string;
     keywords: string;
     location: string;
+    salary?: string | null;
     classification: string | null;
     type: string | null;
     totalJobsMessage: string | null;
