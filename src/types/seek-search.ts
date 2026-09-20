@@ -27,21 +27,45 @@ export interface JobClassification {
         JOB_ICT_SUBCATEGORY | JOB_MTL_SUBCATEGORY | JOB_HEALTH_SUBCATEGORY;
 }
 
-export enum SALARY {
+export enum SALARY_PERIOD {
+    ANNUALLY = 'Annually',
+    // MONTHLY = 'Monthly',
+    HOURLY = 'Hourly',
+}
+
+export enum SALARY_ANNUALLY {
     NZD_70K = '$70K',
     NZD_80K = '$80K',
     NZD_100K = '$100K',
     NZD_120K = '$120K',
     NZD_150K = '$150K',
+    NZD_200K = '$200K',
 }
+
+export enum SALARY_HOURLY {
+    NZD_60 = '$60',
+    NZD_75 = '$75',
+    NZD_100 = '$100',
+    NZD_125 = '$125',
+    NZD_175 = '$175',
+}
+
+export type SalaryParams =
+    | {
+          period: SALARY_PERIOD.ANNUALLY;
+          from?: SALARY_ANNUALLY;
+          to?: SALARY_ANNUALLY;
+      }
+    | {
+          period: SALARY_PERIOD.HOURLY;
+          from?: SALARY_HOURLY;
+          to?: SALARY_HOURLY;
+      };
 
 export interface SearchParams {
     keywords: string[];
     location: string;
-    salary?: {
-        min?: SALARY;
-        max?: SALARY;
-    }
+    salary?: SalaryParams;
     classification?: JobClassification;
     type: JOB_TYPE;
 }
