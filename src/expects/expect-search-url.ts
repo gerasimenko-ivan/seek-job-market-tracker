@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { SearchParams } from '../types/seek-search';
-import { forUrl } from '../helpers/string-helper';
+import { textForUrl, moneyForUrl, salaryPeriodForUrl } from '../helpers/string-helper';
 
 export interface ExpectSearchUrlParams {
     page: Page;
@@ -9,18 +9,28 @@ export interface ExpectSearchUrlParams {
 
 export async function expectSearchUrl(params: ExpectSearchUrlParams): Promise<void> {
     const { page, search } = params;
-    const { keywords, location, type, classification } = search;
+    const { keywords, location, type, classification, salary } = search;
 
     const urlSubfolder =
         `${keywords.join('-')}-jobs` +
         (classification
-            ? (`-in-${forUrl({ text: classification.category, lowerCase: true })}`
+            ? (`-in-${textForUrl({ text: classification.category, lowerCase: true })}`
                 + (classification.subcategory
-                    ? `/${forUrl({ text: classification.subcategory, lowerCase: true })}`
+                    ? `/${textForUrl({ text: classification.subcategory, lowerCase: true })}`
                     : ''))
             : '') +
-        `/in-${forUrl({ text: location })}/` +
-        forUrl({ text: type, lowerCase: true });
+        `/in-${textForUrl({ text: location })}/` +
+        textForUrl({ text: type, lowerCase: true });
 
     await expect(page).toHaveURL(new RegExp(urlSubfolder));
+
+    if (salary) {
+        const urlParams =
+            'salaryrange=' +
+            `${salary.from ? moneyForUrl({ value: salary.from }) : ''}` +
+            `-${salary.to ? moneyForUrl({ value: salary.to }) : ''}` +
+            `&salarytype=${salaryPeriodForUrl(salary.period)}`;
+
+        await expect(page).toHaveURL(new RegExp(urlParams));
+    }
 }
