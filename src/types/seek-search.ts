@@ -48,6 +48,9 @@ export enum SALARY_ANNUALLY {
     NZD_120K = '$120K',
     NZD_150K = '$150K',
     NZD_200K = '$200K',
+    NZD_250K = '$250K',
+    NZD_350K = '$350K',
+    NZD_350KPlus = '$350K+',
 }
 
 export enum SALARY_HOURLY {
