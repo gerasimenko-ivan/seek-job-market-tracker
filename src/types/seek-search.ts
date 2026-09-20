@@ -21,11 +21,19 @@ export enum JOB_HEALTH_SUBCATEGORY {
     CLINICAL_MEDICAL_RESEARCH = 'Clinical/Medical Research',
 }
 
-export interface JobClassification {
-    category: JOB_CATEGORY;
-    subcategory?:
-        JOB_ICT_SUBCATEGORY | JOB_MTL_SUBCATEGORY | JOB_HEALTH_SUBCATEGORY;
-}
+export type JobClassification =
+    | {
+          category: JOB_CATEGORY.ICT;
+          subcategory?: JOB_ICT_SUBCATEGORY;
+      }
+    | {
+          category: JOB_CATEGORY.MTL;
+          subcategory?: JOB_MTL_SUBCATEGORY;
+      }
+    | {
+          category: JOB_CATEGORY.HEALTH;
+          subcategory?: JOB_HEALTH_SUBCATEGORY;
+      };
 
 export enum SALARY_PERIOD {
     ANNUALLY = 'Annually',

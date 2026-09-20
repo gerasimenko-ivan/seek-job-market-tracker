@@ -1,7 +1,12 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 import { parseJobsCount } from '../parse-jobs-count';
-import { JOB_TYPE, JobClassification, SearchPageState, SearchParams } from '../types/seek-search';
+import {
+    JOB_TYPE,
+    JobClassification,
+    SearchPageState,
+    SearchParams,
+} from '../types/seek-search';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;
@@ -34,8 +39,10 @@ export class SeekSearchPage {
     constructor(page: Page) {
         this.page = page;
 
-        this.keywords = page.getByTestId('searchKeywordsField')
-            .locator('input').last();
+        this.keywords = page
+            .getByTestId('searchKeywordsField')
+            .locator('input')
+            .last();
 
         this.location = page.getByTestId('SearchBar__Where');
 
