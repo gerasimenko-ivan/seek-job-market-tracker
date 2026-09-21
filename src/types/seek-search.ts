@@ -54,6 +54,9 @@ export enum SALARY_ANNUALLY {
 }
 
 export enum SALARY_HOURLY {
+    NZD_35 = '$35',
+    NZD_40 = '$40',
+    NZD_50 = '$50',
     NZD_60 = '$60',
     NZD_75 = '$75',
     NZD_100 = '$100',
