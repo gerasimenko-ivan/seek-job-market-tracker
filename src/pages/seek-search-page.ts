@@ -156,11 +156,6 @@ export class SeekSearchPage {
         }
 
         await this.refineBarClose.click({ position: { x: 0, y: 0 } });
-
-        await takeScreenshot({
-            page: this.page,
-            name: 'classification',
-        });
     }
 
     async selectSalary(param: SalaryParams): Promise<void> {
