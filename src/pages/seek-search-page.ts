@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
 import {
+    FILTER_MESSAGE,
     JOB_TYPE,
     JobClassification,
     SALARY_ANNUALLY,
@@ -59,6 +60,8 @@ export class SeekSearchPage {
             .filter({ hasText: to })
             .last();
 
+    readonly filterMessageNoResults: Locator;
+
     // results
     readonly totalJobsMessage: Locator;
 
@@ -87,6 +90,11 @@ export class SeekSearchPage {
         this.salaryButton = page.getByTestId('toggleSalaryRangePanel').last();
         this.salaryFromButton = page.getByTestId('salaryFieldFrom').last();
         this.salaryToButton = page.getByTestId('salaryFieldTo').last();
+
+        this.filterMessageNoResults = page
+            .getByTestId('behavioural-cues-filters-message')
+            .getByText(FILTER_MESSAGE.NO_RESULTS)
+            .last();
     }
 
     // actions
@@ -162,7 +170,9 @@ export class SeekSearchPage {
         const { period, from, to } = param;
 
         if (!(from || to)) {
-            throw new Error(`No salary range specified. If salary.period=${period} is specified at least one of params salary.from or salary.to must be specified`);
+            throw new Error(
+                `No salary range specified. If salary.period=${period} is specified at least one of params salary.from or salary.to must be specified`,
+            );
         }
 
         await this.salaryButton.click();
@@ -190,8 +200,18 @@ export class SeekSearchPage {
         const salary = await this.salaryButton.textContent();
         const classification = await this.classificationButton.textContent();
         const type = await this.workTypeButton.textContent();
-        const totalJobsMessage = await this.totalJobsMessage.textContent();
-        const totalJobs = parseJobsCount(totalJobsMessage);
+
+        const searchResult = await this.waitForSearchResult();
+
+        let totalJobsMessage: string | null;
+        let totalJobs: number;
+        if (searchResult === 'NO_RESULTS') {
+            totalJobsMessage = FILTER_MESSAGE.NO_RESULTS;
+            totalJobs = 0;
+        } else {
+            totalJobsMessage = await this.totalJobsMessage.textContent();
+            totalJobs = parseJobsCount(totalJobsMessage);
+        }
 
         if (params?.printLogs) {
             console.log(`URL: ${url}`);
@@ -214,5 +234,20 @@ export class SeekSearchPage {
             totalJobsMessage,
             totalJobs,
         };
+    }
+
+    async waitForSearchResult(): Promise<'NO_RESULTS' | 'JOBS_FOUND'> {
+        // TODO: replace fixed wait with proper synchronization
+        await this.page.waitForTimeout(1000);
+
+        return Promise.race([
+            this.totalJobsMessage
+                .waitFor({ state: 'visible', timeout: 15000 })
+                .then(() => 'JOBS_FOUND' as const),
+
+            this.filterMessageNoResults
+                .waitFor({ state: 'visible', timeout: 15000 })
+                .then(() => 'NO_RESULTS' as const),
+        ]);
     }
 }

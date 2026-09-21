@@ -94,3 +94,7 @@ export interface SearchPageState {
     totalJobsMessage: string | null;
     totalJobs: number;
 }
+
+export enum FILTER_MESSAGE {
+    NO_RESULTS = 'No matching search results',
+}
