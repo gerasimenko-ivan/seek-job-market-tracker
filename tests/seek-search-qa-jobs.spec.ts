@@ -14,60 +14,30 @@ import { takeScreenshot } from '../src/utils/screenshot';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(80000);
-    const searches: SearchParams[] = [
-        {
-            keywords: ['typescript', 'playwright'],
-            location: 'All Auckland',
-            type: JOB_TYPE.FULL_TIME,
-            classification: {
-                category: JOB_CATEGORY.ICT,
-                subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
-            },
-            salary: {
-                period: SALARY_PERIOD.HOURLY,
-                from: SALARY_HOURLY.NZD_35,
-            },
+    const commonSearchParams: Omit<SearchParams, 'salary'> = {
+        keywords: ['typescript', 'playwright'],
+        location: 'All Auckland',
+        type: JOB_TYPE.FULL_TIME,
+        classification: {
+            category: JOB_CATEGORY.ICT,
+            subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
         },
-        {
-            keywords: ['typescript', 'playwright'],
-            location: 'All Auckland',
-            type: JOB_TYPE.FULL_TIME,
-            classification: {
-                category: JOB_CATEGORY.ICT,
-                subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
-            },
-            salary: {
-                period: SALARY_PERIOD.HOURLY,
-                from: SALARY_HOURLY.NZD_50,
-            },
-        },
-        {
-            keywords: ['typescript', 'playwright'],
-            location: 'All Auckland',
-            type: JOB_TYPE.FULL_TIME,
-            classification: {
-                category: JOB_CATEGORY.ICT,
-                subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
-            },
-            salary: {
-                period: SALARY_PERIOD.HOURLY,
-                from: SALARY_HOURLY.NZD_75,
-            },
-        },
-        {
-            keywords: ['typescript', 'playwright'],
-            location: 'All Auckland',
-            type: JOB_TYPE.FULL_TIME,
-            classification: {
-                category: JOB_CATEGORY.ICT,
-                subcategory: JOB_ICT_SUBCATEGORY.TESTING_AND_QUALITY_ASSURANCE,
-            },
-            salary: {
-                period: SALARY_PERIOD.HOURLY,
-                from: SALARY_HOURLY.NZD_100,
-            },
-        },
+    };
+
+    const salaryFrom = [
+        SALARY_HOURLY.NZD_35,
+        SALARY_HOURLY.NZD_50,
+        SALARY_HOURLY.NZD_75,
+        SALARY_HOURLY.NZD_100,
     ];
+
+    const searches: SearchParams[] = salaryFrom.map((from) => ({
+        ...commonSearchParams,
+        salary: {
+            period: SALARY_PERIOD.HOURLY,
+            from,
+        },
+    }));
 
     const seekSearch = new SeekSearchPage(page);
 
