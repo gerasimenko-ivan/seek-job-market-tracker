@@ -1,6 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { takeScreenshot } from '../utils/screenshot';
-import { parseJobsCount } from '../parse-jobs-count';
 import {
     JOB_TYPE,
     JobClassification,
@@ -11,6 +10,7 @@ import {
     SearchPageState,
     SearchParams,
 } from '../types/seek-search';
+import { parseJobsCount } from '../helpers/string-helper';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;
