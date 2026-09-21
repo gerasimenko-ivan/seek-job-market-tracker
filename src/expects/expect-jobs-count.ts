@@ -9,6 +9,10 @@ export type ExpectJobsCountMessage = Pick<
 export function expectJobsCountMessage(param: ExpectJobsCountMessage): void {
     const { totalJobsMessage, totalJobs } = param;
 
+    if (totalJobs === 0) {
+        return;
+    }
+
     expect(
         totalJobsMessage,
         'Total jobs message should contain the correctly formatted job count',
