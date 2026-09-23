@@ -5,28 +5,18 @@ export interface CreateJobMarketCsvRow {
     jobsCounts: Map<string, number>;
 }
 
-export interface JobMarketCsvRow {
+export interface JobMarketCsvRowBase {
     date: string;
     keywords: string;
     location: string;
     type: string;
     classification: string;
-    hourly_35_plus: number;
-    hourly_50_plus: number;
-    hourly_75_plus: number;
-    hourly_100_plus: number;
-    annual_80K_plus: number;
-    annual_100K_plus: number;
-    annual_120K_plus: number;
-    annual_150K_plus: number;
 }
 
-export const jobMarketCsvHeaders = [
-    'date',
-    'keywords',
-    'location',
-    'type',
-    'classification',
+export type JobMarketCsvRow = JobMarketCsvRowBase &
+    Record<JobMarketSalaryColumn, number>;
+
+export const jobMarketSalaryColumns = [
     'hourly_35_plus',
     'hourly_50_plus',
     'hourly_75_plus',
@@ -35,4 +25,15 @@ export const jobMarketCsvHeaders = [
     'annual_100K_plus',
     'annual_120K_plus',
     'annual_150K_plus',
+] as const;
+
+export type JobMarketSalaryColumn = (typeof jobMarketSalaryColumns)[number];
+
+export const jobMarketCsvHeaders = [
+    'date',
+    'keywords',
+    'location',
+    'type',
+    'classification',
+    ...jobMarketSalaryColumns,
 ];

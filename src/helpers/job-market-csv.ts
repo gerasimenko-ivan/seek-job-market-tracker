@@ -1,6 +1,9 @@
 import {
     CreateJobMarketCsvRow,
     JobMarketCsvRow,
+    JobMarketCsvRowBase,
+    JobMarketSalaryColumn,
+    jobMarketSalaryColumns,
 } from '../types/job-market-csv';
 
 export function createJobMarketCsvRow(
@@ -11,20 +14,24 @@ export function createJobMarketCsvRow(
         ? `${param.search.classification.category} - ${param.search.classification.subcategory}`
         : (param.search.classification?.category ?? '');
 
-    return {
+    const row: JobMarketCsvRowBase = {
         date: timestamp,
         keywords: param.search.keywords.join(' '),
         location: param.search.location,
         type: param.search.type,
         classification,
-        hourly_35_plus: getJobsCount(param.jobsCounts, 'hourly_35_plus'),
-        hourly_50_plus: getJobsCount(param.jobsCounts, 'hourly_50_plus'),
-        hourly_75_plus: getJobsCount(param.jobsCounts, 'hourly_75_plus'),
-        hourly_100_plus: getJobsCount(param.jobsCounts, 'hourly_100_plus'),
-        annual_80K_plus: getJobsCount(param.jobsCounts, 'annual_80K_plus'),
-        annual_100K_plus: getJobsCount(param.jobsCounts, 'annual_100K_plus'),
-        annual_120K_plus: getJobsCount(param.jobsCounts, 'annual_120K_plus'),
-        annual_150K_plus: getJobsCount(param.jobsCounts, 'annual_150K_plus'),
+    };
+
+    const salaryValues = Object.fromEntries(
+        jobMarketSalaryColumns.map((column) => [
+            column,
+            getJobsCount(param.jobsCounts, column),
+        ]),
+    ) as Record<JobMarketSalaryColumn, number>;
+
+    return {
+        ...row,
+        ...salaryValues,
     };
 }
 
@@ -45,13 +52,6 @@ export function jobMarketCsvValues(row: JobMarketCsvRow): (string | number)[] {
         row.location,
         row.type,
         row.classification,
-        row.hourly_35_plus,
-        row.hourly_50_plus,
-        row.hourly_75_plus,
-        row.hourly_100_plus,
-        row.annual_80K_plus,
-        row.annual_100K_plus,
-        row.annual_120K_plus,
-        row.annual_150K_plus,
+        ...jobMarketSalaryColumns.map((column) => row[column]),
     ];
 }
