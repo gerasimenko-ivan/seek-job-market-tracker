@@ -12,7 +12,7 @@ import {
     SearchParams,
 } from '../src/types/seek-search';
 import { takeScreenshot } from '../src/utils/screenshot';
-import { annually, hourly } from '../src/helpers/salary-helper';
+import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(100000);
@@ -38,11 +38,16 @@ test('SEEK search collects QA job counts', async ({ page }) => {
         annually(SALARY_ANNUALLY.NZD_150K),
     ];
 
-    const searches: SearchParams[] = salaryParams.map((salary) => ({
+    type SalarySearchParams = Omit<SearchParams, 'salary'> & {
+        salary: SalaryParams;
+    };
+
+    const searches: SalarySearchParams[] = salaryParams.map((salary) => ({
         ...commonSearchParams,
         salary,
     }));
 
+    const jobsCounts = new Map<string, number>();
     const seekSearch = new SeekSearchPage(page);
 
     for (const search of searches) {
@@ -56,8 +61,15 @@ test('SEEK search collects QA job counts', async ({ page }) => {
 
         expectJobsCountMessage(searchPageState);
 
+        jobsCounts.set(
+            salaryKey(search.salary),
+            searchPageState.totalJobs,
+        );
+
         console.log('--------------');
 
-        await takeScreenshot({ page, name: `salary-${search?.salary?.period}-${search?.salary?.from}` });
+        await takeScreenshot({ page, name: `salary-${search.salary.period}-${search.salary.from}` });
     }
+
+    console.log(jobsCounts);
 });
