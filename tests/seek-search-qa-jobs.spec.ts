@@ -6,17 +6,20 @@ import {
     JOB_CATEGORY,
     JOB_ICT_SUBCATEGORY,
     JOB_TYPE,
+    SALARY_ANNUALLY,
     SALARY_HOURLY,
-    SALARY_PERIOD,
-    SearchParams
+    SalaryParams,
+    SearchParams,
 } from '../src/types/seek-search';
 import { takeScreenshot } from '../src/utils/screenshot';
+import { annually, hourly } from '../src/helpers/salary-helper';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
-    test.setTimeout(80000);
+    test.setTimeout(100000);
     const commonSearchParams: Omit<SearchParams, 'salary'> = {
         keywords: ['typescript', 'playwright'],
         location: 'All Auckland',
+        // location: 'All New Zealand',
         type: JOB_TYPE.FULL_TIME,
         classification: {
             category: JOB_CATEGORY.ICT,
@@ -24,19 +27,20 @@ test('SEEK search collects QA job counts', async ({ page }) => {
         },
     };
 
-    const salaryFrom = [
-        SALARY_HOURLY.NZD_35,
-        SALARY_HOURLY.NZD_50,
-        SALARY_HOURLY.NZD_75,
-        SALARY_HOURLY.NZD_100,
+    const salaryParams: SalaryParams[] = [
+        hourly(SALARY_HOURLY.NZD_35),
+        hourly(SALARY_HOURLY.NZD_50),
+        hourly(SALARY_HOURLY.NZD_75),
+        hourly(SALARY_HOURLY.NZD_100),
+        annually(SALARY_ANNUALLY.NZD_80K),
+        annually(SALARY_ANNUALLY.NZD_100K),
+        annually(SALARY_ANNUALLY.NZD_120K),
+        annually(SALARY_ANNUALLY.NZD_150K),
     ];
 
-    const searches: SearchParams[] = salaryFrom.map((from) => ({
+    const searches: SearchParams[] = salaryParams.map((salary) => ({
         ...commonSearchParams,
-        salary: {
-            period: SALARY_PERIOD.HOURLY,
-            from,
-        },
+        salary,
     }));
 
     const seekSearch = new SeekSearchPage(page);
