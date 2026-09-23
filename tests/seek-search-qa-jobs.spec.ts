@@ -13,6 +13,9 @@ import {
 } from '../src/types/seek-search';
 import { takeScreenshot } from '../src/utils/screenshot';
 import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
+import { createJobMarketCsvRow, jobMarketCsvValues } from '../src/helpers/job-market-csv';
+import { appendCsvRow } from '../src/utils/csv';
+import { jobMarketCsvHeaders } from '../src/types/job-market-csv';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(100000);
@@ -72,4 +75,12 @@ test('SEEK search collects QA job counts', async ({ page }) => {
     }
 
     console.log(jobsCounts);
+
+    const jobMarketCsvRow = createJobMarketCsvRow({ search: searches[0], jobsCounts });
+
+    appendCsvRow({
+        filePath: 'test-results/seek-job-market.csv',
+        headers: jobMarketCsvHeaders,
+        values: jobMarketCsvValues(jobMarketCsvRow),
+    });
 });

@@ -1,0 +1,38 @@
+import { SearchParams } from './seek-search';
+
+export interface CreateJobMarketCsvRow {
+    search: SearchParams;
+    jobsCounts: Map<string, number>;
+}
+
+export interface JobMarketCsvRow {
+    date: string;
+    keywords: string;
+    location: string;
+    type: string;
+    classification: string;
+    hourly_35_plus: number;
+    hourly_50_plus: number;
+    hourly_75_plus: number;
+    hourly_100_plus: number;
+    annual_80K_plus: number;
+    annual_100K_plus: number;
+    annual_120K_plus: number;
+    annual_150K_plus: number;
+}
+
+export const jobMarketCsvHeaders = [
+    'date',
+    'keywords',
+    'location',
+    'type',
+    'classification',
+    'hourly_35_plus',
+    'hourly_50_plus',
+    'hourly_75_plus',
+    'hourly_100_plus',
+    'annual_80K_plus',
+    'annual_100K_plus',
+    'annual_120K_plus',
+    'annual_150K_plus',
+];
