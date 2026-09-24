@@ -9,14 +9,15 @@ import {
     SALARY_ANNUALLY,
     SALARY_HOURLY,
     SalaryParams,
-    SearchParams,
+    SearchParamsWithoutSalary,
+    SearchParamsWithSalary,
 } from '../src/types/seek-search';
 import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
 import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(100000);
-    const commonSearchParams: Omit<SearchParams, 'salary'> = {
+    const commonSearchParams: SearchParamsWithoutSalary = {
         keywords: ['typescript', 'playwright'],
         // keywords: ['playwright'],
         // keywords: ['typescript'],
@@ -41,11 +42,7 @@ test('SEEK search collects QA job counts', async ({ page }) => {
         annually(SALARY_ANNUALLY.NZD_150K),
     ];
 
-    type SalarySearchParams = Omit<SearchParams, 'salary'> & {
-        salary: SalaryParams;
-    };
-
-    const searches: SalarySearchParams[] = salaryParams.map((salary) => ({
+    const searches: SearchParamsWithSalary[] = salaryParams.map((salary) => ({
         ...commonSearchParams,
         salary,
     }));
@@ -83,7 +80,7 @@ test('SEEK search collects QA job counts', async ({ page }) => {
         // filePath: 'output/csv/seek-job-market-ts-nz.csv',
         // filePath: 'output/csv/seek-job-market-qa-auck.csv',
         // filePath: 'output/csv/seek-job-market-qa-nz.csv',
-        search: searches[0],
+        search: commonSearchParams,
         jobsCounts,
     });
 });

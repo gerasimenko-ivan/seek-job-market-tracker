@@ -84,6 +84,12 @@ export interface SearchParams {
     type: JOB_TYPE;
 }
 
+export type SearchParamsWithoutSalary = Omit<SearchParams, 'salary'>;
+
+export type SearchParamsWithSalary = SearchParamsWithoutSalary & {
+    salary: SalaryParams;
+};
+
 export interface SearchPageState {
     url: string;
     keywords: string;
