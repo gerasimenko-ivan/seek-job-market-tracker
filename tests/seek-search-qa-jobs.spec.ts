@@ -17,9 +17,10 @@ import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(100000);
     const commonSearchParams: Omit<SearchParams, 'salary'> = {
-        // keywords: ['typescript', 'playwright'],
-        keywords: ['typescript'],
+        keywords: ['typescript', 'playwright'],
         // keywords: ['playwright'],
+        // keywords: ['typescript'],
+        // keywords: ['QA'],
         location: 'All Auckland',
         // location: 'All New Zealand',
         type: JOB_TYPE.FULL_TIME,
@@ -74,7 +75,14 @@ test('SEEK search collects QA job counts', async ({ page }) => {
     console.log(jobsCounts);
 
     saveJobMarketCsvRow({
-        filePath: 'test-results/seek-job-market.csv',
+        filePath: 'output/csv/seek-job-market-ts-pw-auck.csv',
+        // filePath: 'output/csv/seek-job-market-ts-pw-nz.csv',
+        // filePath: 'output/csv/seek-job-market-pw-auck.csv',
+        // filePath: 'output/csv/seek-job-market-pw-nz.csv',
+        // filePath: 'output/csv/seek-job-market-ts-auck.csv',
+        // filePath: 'output/csv/seek-job-market-ts-nz.csv',
+        // filePath: 'output/csv/seek-job-market-qa-auck.csv',
+        // filePath: 'output/csv/seek-job-market-qa-nz.csv',
         search: searches[0],
         jobsCounts,
     });

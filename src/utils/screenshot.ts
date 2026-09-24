@@ -11,6 +11,6 @@ export async function takeScreenshot(param: ScreenshotParams): Promise<void> {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 
     await page.screenshot({
-        path: `screenshots/${timestamp}-${name}.png`,
+        path: `output/screenshots/${timestamp}-${name}.png`,
     });
 }
