@@ -5,6 +5,10 @@ export interface CreateJobMarketCsvRow {
     jobsCounts: Map<string, number>;
 }
 
+export interface SaveJobMarketCsvRowParams extends CreateJobMarketCsvRow {
+    filePath: string;
+}
+
 export interface JobMarketCsvRowBase {
     date: string;
     keywords: string;

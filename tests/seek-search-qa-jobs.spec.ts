@@ -13,14 +13,14 @@ import {
 } from '../src/types/seek-search';
 import { takeScreenshot } from '../src/utils/screenshot';
 import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
-import { createJobMarketCsvRow, jobMarketCsvValues } from '../src/helpers/job-market-csv';
-import { appendCsvRow } from '../src/utils/csv';
-import { jobMarketCsvHeaders } from '../src/types/job-market-csv';
+import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
 
 test('SEEK search collects QA job counts', async ({ page }) => {
     test.setTimeout(100000);
     const commonSearchParams: Omit<SearchParams, 'salary'> = {
-        keywords: ['typescript', 'playwright'],
+        // keywords: ['typescript', 'playwright'],
+        keywords: ['typescript'],
+        // keywords: ['playwright'],
         location: 'All Auckland',
         // location: 'All New Zealand',
         type: JOB_TYPE.FULL_TIME,
@@ -76,11 +76,9 @@ test('SEEK search collects QA job counts', async ({ page }) => {
 
     console.log(jobsCounts);
 
-    const jobMarketCsvRow = createJobMarketCsvRow({ search: searches[0], jobsCounts });
-
-    appendCsvRow({
+    saveJobMarketCsvRow({
         filePath: 'test-results/seek-job-market.csv',
-        headers: jobMarketCsvHeaders,
-        values: jobMarketCsvValues(jobMarketCsvRow),
+        search: searches[0],
+        jobsCounts,
     });
 });

@@ -1,10 +1,13 @@
 import {
     CreateJobMarketCsvRow,
+    jobMarketCsvHeaders,
     JobMarketCsvRow,
     JobMarketCsvRowBase,
     JobMarketSalaryColumn,
     jobMarketSalaryColumns,
+    SaveJobMarketCsvRowParams,
 } from '../types/job-market-csv';
+import { appendCsvRow } from '../utils/csv';
 
 export function createJobMarketCsvRow(
     param: CreateJobMarketCsvRow,
@@ -35,7 +38,10 @@ export function createJobMarketCsvRow(
     };
 }
 
-function getJobsCount(jobsCounts: Map<string, number>, key: string): number {
+function getJobsCount(
+    jobsCounts: Map<string, number>,
+    key: JobMarketSalaryColumn,
+): number {
     const count = jobsCounts.get(key);
 
     if (count === undefined) {
@@ -54,4 +60,14 @@ export function jobMarketCsvValues(row: JobMarketCsvRow): (string | number)[] {
         row.classification,
         ...jobMarketSalaryColumns.map((column) => row[column]),
     ];
+}
+
+export function saveJobMarketCsvRow(param: SaveJobMarketCsvRowParams): void {
+    const row = createJobMarketCsvRow(param);
+
+    appendCsvRow({
+        filePath: param.filePath,
+        headers: jobMarketCsvHeaders,
+        values: jobMarketCsvValues(row),
+    });
 }
