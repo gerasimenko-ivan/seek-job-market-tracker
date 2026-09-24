@@ -11,7 +11,6 @@ import {
     SalaryParams,
     SearchParams,
 } from '../src/types/seek-search';
-import { takeScreenshot } from '../src/utils/screenshot';
 import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
 import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
 
@@ -70,8 +69,6 @@ test('SEEK search collects QA job counts', async ({ page }) => {
         );
 
         console.log('--------------');
-
-        await takeScreenshot({ page, name: `salary-${search.salary.period}-${search.salary.from}` });
     }
 
     console.log(jobsCounts);

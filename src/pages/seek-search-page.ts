@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { takeScreenshot } from '../utils/screenshot';
 import {
     FILTER_MESSAGE,
     JOB_TYPE,
@@ -123,8 +122,6 @@ export class SeekSearchPage {
         if (salary) {
             await this.selectSalary(salary);
         }
-
-        await takeScreenshot({ page: this.page, name: 'filters-applied' });
     }
 
     async selectWorkType(type: JOB_TYPE): Promise<void> {
