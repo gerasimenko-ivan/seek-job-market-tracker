@@ -6,7 +6,7 @@ export enum JOB_TYPE {
 export enum JOB_CATEGORY {
     ICT = 'Information & Communication Technology',
     MTL = 'Manufacturing, Transport & Logistics',
-    HEALTH = 'All Healthcare & Medical',
+    HEALTH = 'Healthcare & Medical',
 }
 
 export enum JOB_ICT_SUBCATEGORY {
