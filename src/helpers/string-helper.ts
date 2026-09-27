@@ -9,6 +9,7 @@ export function textForUrl(param: TextForUrlParams): string {
     let url = param.text
         .replaceAll(',', '')
         .replaceAll('&', '')
+        .replaceAll('/', ' ')
         .replace(/ +(?= )/g, '') // remove double spaces
         .replaceAll(' ', '-');
 

@@ -12,7 +12,7 @@ export async function expectSearchUrl(params: ExpectSearchUrlParams): Promise<vo
     const { keywords, location, type, classification, salary } = search;
 
     const urlSubfolder =
-        `${keywords.join('-')}-jobs` +
+        `${keywords.join('-').replaceAll(' ', '-')}-jobs` +
         (classification
             ? (`-in-${textForUrl({ text: classification.category, lowerCase: true })}`
                 + (classification.subcategory
