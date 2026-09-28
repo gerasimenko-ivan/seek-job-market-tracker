@@ -36,7 +36,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All Auckland',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-ts-pw-auck.csv',
+        outputFile: 'output/csv/qa/seek-job-market-ts-pw-auck.csv',
     },
     {
         search: {
@@ -44,7 +44,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All New Zealand',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-ts-pw-nz.csv',
+        outputFile: 'output/csv/qa/seek-job-market-ts-pw-nz.csv',
     },
     {
         search: {
@@ -52,7 +52,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All Auckland',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-pw-auck.csv',
+        outputFile: 'output/csv/qa/seek-job-market-pw-auck.csv',
     },
     {
         search: {
@@ -60,7 +60,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All New Zealand',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-pw-nz.csv',
+        outputFile: 'output/csv/qa/seek-job-market-pw-nz.csv',
     },
     {
         search: {
@@ -68,7 +68,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All Auckland',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-ts-auck.csv',
+        outputFile: 'output/csv/qa/seek-job-market-ts-auck.csv',
     },
     {
         search: {
@@ -76,7 +76,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All New Zealand',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-ts-nz.csv',
+        outputFile: 'output/csv/qa/seek-job-market-ts-nz.csv',
     },
     {
         search: {
@@ -84,7 +84,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All Auckland',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-qa-auck.csv',
+        outputFile: 'output/csv/qa/seek-job-market-qa-auck.csv',
     },
     {
         search: {
@@ -92,7 +92,7 @@ const scenarios: JobMarketScenario[] = [
             location: 'All New Zealand',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/seek-job-market-qa-nz.csv',
+        outputFile: 'output/csv/qa/seek-job-market-qa-nz.csv',
     },
 ];
 
