@@ -6,30 +6,17 @@ import {
     JOB_CATEGORY,
     JOB_ICT_SUBCATEGORY,
     JOB_TYPE,
-    SALARY_ANNUALLY,
-    SALARY_HOURLY,
-    SalaryParams,
     SearchParamsWithoutSalary,
     SearchParamsWithSalary,
 } from '../src/types/seek-search';
-import { annually, hourly, salaryKey } from '../src/helpers/salary-helper';
+import { salaryKey } from '../src/helpers/salary-helper';
 import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
+import { salaryParams } from '../src/data/job-market-salary-param';
 
 interface JobMarketScenario {
     search: SearchParamsWithoutSalary;
     outputFile: string;
 }
-
-const salaryParams: SalaryParams[] = [
-    hourly(SALARY_HOURLY.NZD_35),
-    hourly(SALARY_HOURLY.NZD_50),
-    hourly(SALARY_HOURLY.NZD_75),
-    hourly(SALARY_HOURLY.NZD_100),
-    annually(SALARY_ANNUALLY.NZD_80K),
-    annually(SALARY_ANNUALLY.NZD_100K),
-    annually(SALARY_ANNUALLY.NZD_120K),
-    annually(SALARY_ANNUALLY.NZD_150K),
-];
 
 const commonSearchParams: Omit<
     SearchParamsWithoutSalary,
