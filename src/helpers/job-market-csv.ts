@@ -12,13 +12,13 @@ import { appendCsvRow } from '../utils/csv';
 export function createJobMarketCsvRow(
     param: CreateJobMarketCsvRow,
 ): JobMarketCsvRow {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const date = new Date().toISOString().slice(0, 10);
     const classification = param.search.classification?.subcategory
         ? `${param.search.classification.category} - ${param.search.classification.subcategory}`
         : (param.search.classification?.category ?? '');
 
     const row: JobMarketCsvRowBase = {
-        date: timestamp,
+        date,
         keywords: param.search.keywords.join(' '),
         location: param.search.location,
         type: param.search.type,
