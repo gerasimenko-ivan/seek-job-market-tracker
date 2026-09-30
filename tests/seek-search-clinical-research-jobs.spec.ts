@@ -1,22 +1,5 @@
-import { test } from '@playwright/test';
-import { SeekSearchPage } from '../src/pages/seek-search-page';
-import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
-import { expectSearchUrl } from '../src/expects/expect-search-url';
-import {
-    JOB_CATEGORY,
-    JOB_HEALTH_SUBCATEGORY,
-    JOB_TYPE,
-    SearchParamsWithoutSalary,
-    SearchParamsWithSalary,
-} from '../src/types/seek-search';
-import { salaryKey } from '../src/helpers/salary-helper';
-import { saveJobMarketCsvRow } from '../src/helpers/job-market-csv';
-import { salaryParams } from '../src/data/job-market-salary-param';
-
-interface JobMarketScenario {
-    search: SearchParamsWithoutSalary;
-    outputFile: string;
-}
+import { JOB_CATEGORY, JOB_HEALTH_SUBCATEGORY, JOB_TYPE, SearchParamsWithoutSalary } from '../src/types/seek-search';
+import { defineJobMarketTests } from '../src/job-market/define-job-market-tests';
 
 const commonSearchParams: Omit<
     SearchParamsWithoutSalary,
@@ -29,7 +12,7 @@ const commonSearchParams: Omit<
     },
 };
 
-const scenarios: JobMarketScenario[] = [
+defineJobMarketTests([
     {
         search: {
             keywords: ['GCP'],
@@ -82,42 +65,4 @@ const scenarios: JobMarketScenario[] = [
         outputFile:
             'output/csv/clinical-research/seek-job-cr-associate-nz.csv',
     },
-];
-
-for (const { search, outputFile } of scenarios) {
-    test(`SEEK search: ${search.keywords.join(' ')} - ${search.location}`, async ({
-        page,
-    }) => {
-        test.setTimeout(100000);
-
-        const searches: SearchParamsWithSalary[] = salaryParams.map(
-            (salary) => ({
-                ...search,
-                salary,
-            }),
-        );
-
-        const jobsCounts = new Map<string, number>();
-        const seekSearch = new SeekSearchPage(page);
-
-        for (const search of searches) {
-            await seekSearch.search(search);
-
-            await expectSearchUrl({ page, search });
-
-            const searchPageState = await seekSearch.getSearchState();
-
-            expectJobsCountMessage(searchPageState);
-
-            jobsCounts.set(salaryKey(search.salary), searchPageState.totalJobs);
-        }
-
-        console.log(jobsCounts);
-
-        saveJobMarketCsvRow({
-            filePath: outputFile,
-            search: search,
-            jobsCounts,
-        });
-    });
-}
+]);
