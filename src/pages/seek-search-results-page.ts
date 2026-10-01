@@ -13,15 +13,6 @@ export class SeekSearchResultsPage {
 
     readonly jobCard = (index: number) => this.jobCards.nth(index);
 
-    readonly jobTitle = (index: number) =>
-        this.jobCard(index).getByTestId('jobTitle');
-
-    readonly jobCompany = (index: number) =>
-        this.jobCard(index).getByTestId('jobCompany');
-
-    readonly jobLocation = (index: number) =>
-        this.jobCard(index).getByTestId('jobCardLocation');
-
     constructor(page: Page) {
         this.page = page;
 
@@ -33,10 +24,12 @@ export class SeekSearchResultsPage {
     }
 
     async getJobCard(index: number): Promise<JobCard> {
+        const jobCard = this.jobCard(index);
+
         return {
-            title: await this.jobTitle(index).innerText(),
-            company: await this.jobCompany(index).innerText(),
-            location: await this.jobLocation(index).innerText(),
+            title: await jobCard.getByTestId('jobTitle').innerText(),
+            company: await jobCard.getByTestId('jobCompany').innerText(),
+            location: await jobCard.getByTestId('jobCardLocation').innerText(),
         };
     }
 
