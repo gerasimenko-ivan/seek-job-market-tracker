@@ -114,3 +114,7 @@ export enum LOCATION_TYPE {
     Waikato = 'Waikato',
     Wellington = 'Wellington',
 }
+
+export enum WORK_ARRANGEMENT {
+    HYBRID = 'Hybrid',
+}
