@@ -1,9 +1,12 @@
 import { Locator, Page } from '@playwright/test';
+import { locationTypeFromText } from '../helpers/location-helper';
+import { LOCATION_TYPE } from '../types/seek-search';
 
 export interface JobCard {
     title: string;
     company: string;
     location: string;
+    locationType?: LOCATION_TYPE;
 }
 
 export class SeekSearchResultsPage {
@@ -25,11 +28,13 @@ export class SeekSearchResultsPage {
 
     async getJobCard(index: number): Promise<JobCard> {
         const jobCard = this.jobCard(index);
+        const location = await jobCard.getByTestId('jobCardLocation').innerText();
 
         return {
             title: await jobCard.getByTestId('jobTitle').innerText(),
             company: await jobCard.getByTestId('jobCompany').innerText(),
-            location: await jobCard.getByTestId('jobCardLocation').innerText(),
+            location,
+            locationType: locationTypeFromText(location),
         };
     }
 

@@ -104,3 +104,13 @@ export interface SearchPageState {
 export enum FILTER_MESSAGE {
     NO_RESULTS = 'No matching search results',
 }
+
+export enum LOCATION_TYPE {
+    Auckland = 'Auckland',
+    Canterbury = 'Canterbury',
+    Otago = 'Otago',
+    Southland = 'Southland',
+    Taranaki = 'Taranaki',
+    Waikato = 'Waikato',
+    Wellington = 'Wellington',
+}
