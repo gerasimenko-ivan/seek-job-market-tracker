@@ -7,6 +7,7 @@ export interface JobCard {
     company: string;
     location: string;
     locationType?: LOCATION_TYPE;
+    workArrangement?: string;
 }
 
 export class SeekSearchResultsPage {
@@ -28,13 +29,23 @@ export class SeekSearchResultsPage {
 
     async getJobCard(index: number): Promise<JobCard> {
         const jobCard = this.jobCard(index);
-        const location = await jobCard.getByTestId('jobCardLocation').innerText();
+        const location = await jobCard
+            .getByTestId('jobCardLocation')
+            .innerText();
+
+        const workArrangement = jobCard.locator('[data-testid="work-arrangement"]');
+
+        const workArrangementText =
+            await workArrangement.isVisible()
+                ? await workArrangement.innerText()
+                : undefined;
 
         return {
             title: await jobCard.getByTestId('jobTitle').innerText(),
             company: await jobCard.getByTestId('jobCompany').innerText(),
             location,
             locationType: locationTypeFromText(location),
+            workArrangement: workArrangementText,
         };
     }
 
