@@ -56,4 +56,8 @@ export class SeekSearchResultsPage {
             Array.from({ length: count }, (_, index) => this.getJobCard(index)),
         );
     }
+
+    async scrollToJobCard(index: number): Promise<void> {
+        await this.jobCard(index).scrollIntoViewIfNeeded();
+    }
 }
