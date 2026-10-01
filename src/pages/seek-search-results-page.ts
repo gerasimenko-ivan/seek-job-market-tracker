@@ -20,7 +20,7 @@ export class SeekSearchResultsPage {
     constructor(page: Page) {
         this.page = page;
 
-        this.jobCards = this.page.getByTestId('normalJob');
+        this.jobCards = this.page.locator('[data-testid="job-card"]');
     }
 
     async getJobCardCount(): Promise<number> {
