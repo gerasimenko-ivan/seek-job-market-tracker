@@ -12,7 +12,7 @@ test('SEEK search through job cards', async ({ page }) => {
     const search: SearchParams = {
         // keywords: ['typescript', 'playwright'],
         keywords: ['qa'],
-        location: 'All Auckland',
+        location: 'All New Zealand',
         type: JOB_TYPE.FULL_TIME,
         classification: {
             category: JOB_CATEGORY.ICT,
@@ -38,4 +38,8 @@ test('SEEK search through job cards', async ({ page }) => {
     const jobCard = await seekResult.getJobCard(0);
 
     console.log('jobCard:', jobCard);
+
+    const jobCards = await seekResult.getJobCards();
+
+    console.log('jobCards:', jobCards);
 });

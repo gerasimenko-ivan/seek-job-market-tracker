@@ -33,7 +33,11 @@ export class SeekSearchResultsPage {
         };
     }
 
-    // async getJobCards(): Promise<JobCard[]> {
-    //     // read all currently loaded cards
-    // }
+    async getJobCards(): Promise<JobCard[]> {
+        const count = await this.getJobCardCount();
+
+        return Promise.all(
+            Array.from({ length: count }, (_, index) => this.getJobCard(index)),
+        );
+    }
 }
