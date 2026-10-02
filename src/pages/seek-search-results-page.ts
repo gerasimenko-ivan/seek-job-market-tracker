@@ -7,7 +7,7 @@ export interface JobCard {
     title: string;
     company: string;
     location: string;
-    locationType?: LOCATION_TYPE;
+    locationType: LOCATION_TYPE;
     workArrangement?: WORK_ARRANGEMENT;
     shortDescription: string;
 }
