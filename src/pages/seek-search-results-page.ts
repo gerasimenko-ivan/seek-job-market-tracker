@@ -9,6 +9,7 @@ export interface JobCard {
     location: string;
     locationType?: LOCATION_TYPE;
     workArrangement?: WORK_ARRANGEMENT;
+    shortDescription: string;
 }
 
 export class SeekSearchResultsPage {
@@ -38,10 +39,9 @@ export class SeekSearchResultsPage {
         const workArrangement = jobCard
             .locator('[data-testid="work-arrangement"]');
 
-        const workArrangementText =
-            await workArrangement.isVisible()
-                ? await workArrangement.innerText()
-                : undefined;
+        const workArrangementText = await workArrangement.isVisible()
+            ? await workArrangement.innerText()
+            : undefined;
 
         return {
             title: await jobCard.getByTestId('jobTitle').innerText(),
@@ -49,6 +49,9 @@ export class SeekSearchResultsPage {
             location,
             locationType: locationTypeFromText(location),
             workArrangement: workArrangementFromText(workArrangementText),
+            shortDescription: await jobCard
+                .getByTestId('jobShortDescription')
+                .innerText(),
         };
     }
 
