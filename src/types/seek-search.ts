@@ -121,12 +121,14 @@ export enum WORK_ARRANGEMENT {
 }
 
 export enum JOB_KEYWORD {
+    // Programming languages
     TYPESCRIPT = 'TypeScript',
-    PLAYWRIGHT = 'Playwright',
     JAVA = 'Java',
     JAVASCRIPT = 'JavaScript',
     PYTHON = 'Python',
 
+    // Technologies and tools
+    PLAYWRIGHT = 'Playwright',
     CYPRESS = 'Cypress',
     SELENIUM = 'Selenium',
     POSTMAN = 'Postman',
@@ -134,18 +136,22 @@ export enum JOB_KEYWORD {
     API = 'API',
     SQL = 'SQL',
     MOBILE = 'Mobile',
+    HARDWARE = 'hardware',
 
+    SAP = 'SAP',
+    ERP = 'ERP',
+
+    // Position description
+    SENIOR = 'senior',
+    LEAD = 'lead',
     TEST_ANALYST = 'test analyst',
     ANALYST_TESTER = 'analyst tester',
     TEST_MANAGER = 'test manager',
     AI_DRIVEN_TESTING = 'ai-driven testing',
-
-    SAP = 'SAP',
-    ERP = 'ERP',
-    HARDWARE = 'hardware',
-
-    SENIOR = 'senior',
-    LEAD = 'lead',
-
     FIXED_TERM = 'fixed term',
+    PERMANENT = 'permanent',
+
+    // Non IT QA stack
+    SOLID_WORKS_CAD = 'SolidWorks CAD',
+    ADOBE_INDESIGN = 'Adobe InDesign',
 }
