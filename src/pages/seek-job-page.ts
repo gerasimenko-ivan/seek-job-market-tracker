@@ -51,7 +51,9 @@ export class SeekJobPage {
 
     async print(): Promise<void> {
         const job = await this.getJobPage();
-        const descriptionPreview = job.description.slice(0, 30);
+        const descriptionPreview = job.description
+            .slice(0, 100)
+            .replaceAll('\n', ' ');
 
         console.log('{');
         console.log(`  Title: ${job.title}`);
