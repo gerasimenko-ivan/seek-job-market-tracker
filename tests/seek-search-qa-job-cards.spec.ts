@@ -33,15 +33,10 @@ test('SEEK search through job cards', async ({ page }) => {
 
     console.log(`jobCardCount: ${jobCardCount}`);
 
+    expect(jobCardCount).toBe(searchPageState.totalJobs);
     expect(jobCardCount).toBeGreaterThan(0);
-
-    const jobCard = await seekResult.getJobCard(0);
-
-    console.log('jobCard:', jobCard);
 
     const jobCards = await seekResult.getJobCards();
 
     console.log('jobCards:', jobCards);
-
-    expect(jobCards.length).toBe(searchPageState.totalJobs);
 });
