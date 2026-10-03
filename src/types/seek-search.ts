@@ -106,13 +106,14 @@ export enum FILTER_MESSAGE {
 }
 
 export enum LOCATION_TYPE {
-    Auckland = 'Auckland',
-    Canterbury = 'Canterbury',
-    Otago = 'Otago',
-    Southland = 'Southland',
-    Taranaki = 'Taranaki',
-    Waikato = 'Waikato',
-    Wellington = 'Wellington',
+    AUCKLAND = 'Auckland',
+    BAY_OF_PLENTY = 'Bay of Plenty',
+    CANTERBURY = 'Canterbury',
+    OTAGO = 'Otago',
+    SOUTHLAND = 'Southland',
+    TARANAKI = 'Taranaki',
+    WAIKATO = 'Waikato',
+    WELLINGTON = 'Wellington',
 }
 
 export enum WORK_ARRANGEMENT {
