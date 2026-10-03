@@ -118,3 +118,33 @@ export enum LOCATION_TYPE {
 export enum WORK_ARRANGEMENT {
     HYBRID = 'Hybrid',
 }
+
+export enum JOB_KEYWORD {
+    TYPESCRIPT = 'TypeScript',
+    PLAYWRIGHT = 'Playwright',
+    JAVA = 'Java',
+    JAVASCRIPT = 'JavaScript',
+    PYTHON = 'Python',
+
+    CYPRESS = 'Cypress',
+    SELENIUM = 'Selenium',
+    POSTMAN = 'Postman',
+    JMETER = 'JMeter',
+    API = 'API',
+    SQL = 'SQL',
+    MOBILE = 'Mobile',
+
+    TEST_ANALYST = 'test analyst',
+    ANALYST_TESTER = 'analyst tester',
+    TEST_MANAGER = 'test manager',
+    AI_DRIVEN_TESTING = 'ai-driven testing',
+
+    SAP = 'SAP',
+    ERP = 'ERP',
+    HARDWARE = 'hardware',
+
+    SENIOR = 'senior',
+    LEAD = 'lead',
+
+    FIXED_TERM = 'fixed term',
+}

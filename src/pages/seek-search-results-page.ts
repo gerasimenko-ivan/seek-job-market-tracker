@@ -1,7 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 import { locationTypeFromText } from '../helpers/location-helper';
-import { LOCATION_TYPE, WORK_ARRANGEMENT } from '../types/seek-search';
+import { JOB_KEYWORD, LOCATION_TYPE, WORK_ARRANGEMENT } from '../types/seek-search';
 import { workArrangementFromText } from '../helpers/work-arrangement-helper';
+import { extractJobKeywords } from '../helpers/keyword-helper';
 
 export interface JobCard {
     title: string;
@@ -10,6 +11,7 @@ export interface JobCard {
     locationType: LOCATION_TYPE;
     workArrangement?: WORK_ARRANGEMENT;
     shortDescription: string;
+    keywords: JOB_KEYWORD[];
 }
 
 export class SeekSearchResultsPage {
@@ -43,15 +45,19 @@ export class SeekSearchResultsPage {
             ? await workArrangement.innerText()
             : undefined;
 
+        const title = await jobCard.getByTestId('jobTitle').innerText();
+        const shortDescription = await jobCard
+            .getByTestId('jobShortDescription')
+            .innerText();
+
         return {
-            title: await jobCard.getByTestId('jobTitle').innerText(),
+            title,
             company: await jobCard.getByTestId('jobCompany').innerText(),
             location,
             locationType: locationTypeFromText(location),
             workArrangement: workArrangementFromText(workArrangementText),
-            shortDescription: await jobCard
-                .getByTestId('jobShortDescription')
-                .innerText(),
+            shortDescription,
+            keywords: extractJobKeywords(`${title} ${shortDescription}`),
         };
     }
 
