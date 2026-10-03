@@ -1,0 +1,66 @@
+import { Locator, Page } from '@playwright/test';
+import { JOB_KEYWORD } from '../types/seek-search';
+import { extractJobKeywords } from '../helpers/keyword-helper';
+
+export interface JobPage {
+    title: string;
+    advertiser: string;
+    location: string;
+    salary?: {
+        disclosed: boolean;
+        value?: {
+            min: number;
+            max: number;
+        };
+    };
+    description: string;
+    keywords: JOB_KEYWORD[];
+}
+
+export class SeekJobPage {
+    readonly page: Page;
+
+    readonly job: Locator;
+
+    readonly salaryUndisclosedIcon: Locator;
+
+    constructor(page: Page) {
+        this.page = page;
+
+        this.job = this.page.getByTestId('jobDetailsPage');
+
+        this.salaryUndisclosedIcon = this.job.locator(
+            '[id="salaryUndisclosedIconId"]',
+        );
+    }
+
+    async getJobPage(): Promise<JobPage> {
+        const job = this.job;
+
+        const title = await job.getByTestId('job-detail-title').innerText();
+        const description = await job.getByTestId('jobAdDetails').innerText();
+
+        return {
+            title,
+            description,
+            advertiser: await job.getByTestId('advertiser-name').innerText(),
+            location: await job.getByTestId('job-detail-location').innerText(),
+            keywords: extractJobKeywords(`${title} ${description}`),
+        };
+    }
+
+    async print(): Promise<void> {
+        const job = await this.getJobPage();
+        const descriptionPreview = job.description.slice(0, 30);
+
+        console.log('{');
+        console.log(`  Title: ${job.title}`);
+        console.log(
+            `  Description: '${descriptionPreview}${
+                job.description.length > 30 ? "...'" : "'"
+            }`,
+        );
+        console.log(`  Keywords: [ ${job.keywords.join(', ')} ]`);
+        console.log('}');
+    }
+}
