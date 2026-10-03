@@ -18,6 +18,8 @@ export interface JobPage {
 }
 
 export class SeekJobPage {
+    private jobPage?: JobPage;
+
     readonly page: Page;
 
     readonly job: Locator;
@@ -34,19 +36,25 @@ export class SeekJobPage {
         );
     }
 
-    async getJobPage(): Promise<JobPage> {
+    async updateJobPage(): Promise<JobPage> {
         const job = this.job;
 
         const title = await job.getByTestId('job-detail-title').innerText();
         const description = await job.getByTestId('jobAdDetails').innerText();
 
-        return {
+        this.jobPage = {
             title,
             description,
             advertiser: await job.getByTestId('advertiser-name').innerText(),
             location: await job.getByTestId('job-detail-location').innerText(),
             keywords: extractJobKeywords(`${title} ${description}`),
         };
+
+        return this.jobPage;
+    }
+
+    async getJobPage(): Promise<JobPage> {
+        return this.jobPage ?? (await this.updateJobPage());
     }
 
     async print(): Promise<void> {
