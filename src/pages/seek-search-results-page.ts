@@ -38,10 +38,11 @@ export class SeekSearchResultsPage {
             .getByTestId('jobCardLocation')
             .innerText();
 
-        const workArrangement = jobCard
-            .locator('[data-testid="work-arrangement"]');
+        const workArrangement = jobCard.locator(
+            '[data-testid="work-arrangement"]',
+        );
 
-        const workArrangementText = await workArrangement.isVisible()
+        const workArrangementText = (await workArrangement.isVisible())
             ? await workArrangement.innerText()
             : undefined;
 
@@ -67,6 +68,10 @@ export class SeekSearchResultsPage {
         return Promise.all(
             Array.from({ length: count }, (_, index) => this.getJobCard(index)),
         );
+    }
+
+    async clickJobCard(index: number): Promise<void> {
+        await this.jobCard(index).click();
     }
 
     async scrollToJobCard(index: number): Promise<void> {
