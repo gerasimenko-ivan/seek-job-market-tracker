@@ -42,4 +42,6 @@ test('SEEK search through job cards', async ({ page }) => {
     const jobCards = await seekResult.getJobCards();
 
     console.log('jobCards:', jobCards);
+
+    expect(jobCards.length).toBe(searchPageState.totalJobs);
 });
