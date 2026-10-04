@@ -125,35 +125,85 @@ export enum WORK_ARRANGEMENT {
 export enum JOB_KEYWORD {
     // Programming languages
     TYPESCRIPT = 'TypeScript',
-    JAVA = 'Java',
     JAVASCRIPT = 'JavaScript',
+    JAVA = 'Java',
+    C_SHARP = 'C#',
     PYTHON = 'Python',
 
-    // Technologies and tools
+    // Test automation
     PLAYWRIGHT = 'Playwright',
-    CYPRESS = 'Cypress',
     SELENIUM = 'Selenium',
+    CYPRESS = 'Cypress',
+    TRICENTIS_TOSCA = 'Tricentis TOSCA',
+    ESPRESSO = 'Espresso', // Android testing framework
+    UI_AUTOMATOR = 'UI Automator', // black-box UI testing on Android
+    APPIUM = 'Appium', // UI automation of many app platforms, including mobile (iOS, Android, ...)
+
+    // Test tools
     POSTMAN = 'Postman',
     JMETER = 'JMeter',
+
+    // Test management & defect tracking
+    JIRA = 'Jira',
+    HP_ALM = 'HP ALM',
+    TEST_RAIL = 'TestRail',
+
+    // Technical skills
     API = 'API',
     SQL = 'SQL',
+
+    // Version control & collaboration
+    GIT = 'Git',
+    GITHUB = 'GitHub',
+    GITLAB = 'GitLab',
+
+    // CI/CD & DevOps
+    CI_CD = 'CI/CD',
+    JENKINS = 'Jenkins',
+    GITHUB_ACTIONS = 'GitHub Actions',
+    GITLAB_CI = 'GitLab CI',
+    AZURE_DEVOPS = 'Azure DevOps',
+
+    // Documentation & collaboration
+    CONFLUENCE = 'Confluence',
+    SHAREPOINT = 'SharePoint',
+    NOTION = 'Notion',
+
+    // Platforms & environments
+    UI_TESTING = 'UI testing',
     MOBILE = 'Mobile',
+    MOBILE_APP_TESTING = 'Mobile app testing',
+    ANDROID = 'Android',
+    IOS = 'iOS',
     HARDWARE = 'hardware',
 
+    // Enterprise software / business systems
+    DOT_NET = '.NET',
     SAP = 'SAP',
     ERP = 'ERP',
 
-    // Position description
+    // Testing practices
+    TEST_CASES = 'test cases',
+    TEST_PLANS = 'test plans',
+    UAT = 'UAT',
+    AI_DRIVEN_TESTING = 'ai-driven testing',
+
+    // Job seniority / role
     SENIOR = 'senior',
     LEAD = 'lead',
     TEST_ANALYST = 'test analyst',
     ANALYST_TESTER = 'analyst tester',
     TEST_MANAGER = 'test manager',
-    AI_DRIVEN_TESTING = 'ai-driven testing',
+
+    // Employment conditions
     FIXED_TERM = 'fixed term',
     PERMANENT = 'permanent',
 
-    // Non IT QA stack
+    // Other job characteristics
+    SUPPORT247 = '24 x 7 on-call support',
+    CERTIFICATE = 'Relevant technology certification',
+
+    // Non-QA / non-IT technologies
     SOLID_WORKS_CAD = 'SolidWorks CAD',
     ADOBE_INDESIGN = 'Adobe InDesign',
 }

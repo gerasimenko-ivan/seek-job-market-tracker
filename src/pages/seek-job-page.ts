@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { JOB_KEYWORD } from '../types/seek-search';
 import { extractJobKeywords } from '../helpers/keyword-helper';
+import { classifyJobKeywords, KeywordsClassification } from '../helpers/job-classification-helper';
 
 export interface JobPage {
     title: string;
@@ -15,6 +16,7 @@ export interface JobPage {
     };
     description: string;
     keywords: JOB_KEYWORD[];
+    classification: KeywordsClassification;
 }
 
 export class SeekJobPage {
@@ -41,13 +43,15 @@ export class SeekJobPage {
 
         const title = await job.getByTestId('job-detail-title').innerText();
         const description = await job.getByTestId('jobAdDetails').innerText();
+        const keywords = extractJobKeywords(`${title} ${description}`);
 
         this.jobPage = {
             title,
             description,
             advertiser: await job.getByTestId('advertiser-name').innerText(),
             location: await job.getByTestId('job-detail-location').innerText(),
-            keywords: extractJobKeywords(`${title} ${description}`),
+            keywords,
+            classification: classifyJobKeywords(keywords),
         };
 
         return this.jobPage;
@@ -67,10 +71,19 @@ export class SeekJobPage {
         console.log(`  Title: ${job.title}`);
         console.log(
             `  Description: '${descriptionPreview}${
-                job.description.length > 30 ? "...'" : "'"
+                job.description.length > 100 ? "...'" : "'"
             }`,
         );
         console.log(`  Keywords: [ ${job.keywords.join(', ')} ]`);
+        console.log('  Classification: {');
+        console.log(`    score: ${job.classification.score}`);
+        console.log(
+            `    topKeywords: [ ${job.classification.topKeywords.join(', ')} ]`,
+        );
+        console.log(
+            `    bottomKeywords: [ ${job.classification.bottomKeywords.join(', ')} ]`,
+        );
+        console.log('  }');
         console.log('}');
     }
 }

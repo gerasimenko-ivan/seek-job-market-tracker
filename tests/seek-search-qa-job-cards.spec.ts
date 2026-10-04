@@ -4,8 +4,11 @@ import { SeekSearchResultsPage } from '../src/pages/seek-search-results-page';
 import { expectSearchUrl } from '../src/expects/expect-search-url';
 import { expectJobsCountMessage } from '../src/expects/expect-jobs-count';
 import { JOB_CATEGORY, JOB_ICT_SUBCATEGORY, JOB_TYPE, SearchParams } from '../src/types/seek-search';
+import { SeekJobPage } from '../src/pages/seek-job-page';
 
-test('SEEK search through job cards', async ({ page }) => {
+test('SEEK search and job classification', async ({ page }) => {
+    test.setTimeout(40000);
+
     const seekSearch = new SeekSearchPage(page);
     const seekResult = new SeekSearchResultsPage(page);
 
@@ -39,4 +42,12 @@ test('SEEK search through job cards', async ({ page }) => {
     const jobCards = await seekResult.getJobCards();
 
     console.log('jobCards:', jobCards);
+
+    const jobPage = new SeekJobPage(page);
+
+    for (let i = 0; i < jobCardCount; i++) {
+        await seekResult.clickJobCard(i);
+        await jobPage.updateJobPage();
+        await jobPage.print();
+    }
 });
