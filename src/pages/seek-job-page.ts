@@ -67,23 +67,17 @@ export class SeekJobPage {
             .slice(0, 100)
             .replaceAll('\n', ' ');
 
-        console.log('{');
-        console.log(`  Title: ${job.title}`);
-        console.log(
-            `  Description: '${descriptionPreview}${
-                job.description.length > 100 ? "...'" : "'"
-            }`,
-        );
-        console.log(`  Keywords: [ ${job.keywords.join(', ')} ]`);
-        console.log('  Classification: {');
-        console.log(`    score: ${job.classification.score}`);
-        console.log(
-            `    topKeywords: [ ${job.classification.topKeywords.join(', ')} ]`,
-        );
-        console.log(
-            `    bottomKeywords: [ ${job.classification.bottomKeywords.join(', ')} ]`,
-        );
-        console.log('  }');
-        console.log('}');
+        const output = `{
+  Title: ${job.title}
+  Description: '${descriptionPreview}${job.description.length > 100 ? "...'" : "'"}
+  Keywords: [ ${job.keywords.join(', ')} ]
+  Classification: {
+    score: ${job.classification.score}
+    topKeywords: [ ${job.classification.topKeywords.join(', ')} ]
+    bottomKeywords: [ ${job.classification.bottomKeywords.join(', ')} ]
+  }
+}`;
+
+        console.log(output);
     }
 }
