@@ -109,6 +109,7 @@ export enum LOCATION_TYPE {
     AUCKLAND = 'Auckland',
     BAY_OF_PLENTY = 'Bay of Plenty',
     CANTERBURY = 'Canterbury',
+    NORTHLAND = 'Northland',
     OTAGO = 'Otago',
     SOUTHLAND = 'Southland',
     TARANAKI = 'Taranaki',
