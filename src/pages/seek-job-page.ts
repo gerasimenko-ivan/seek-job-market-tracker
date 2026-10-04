@@ -63,13 +63,14 @@ export class SeekJobPage {
 
     async print(): Promise<void> {
         const job = await this.getJobPage();
-        const descriptionPreview = job.description
-            .slice(0, 100)
-            .replaceAll('\n', ' ');
+        const previewMaxLength = 100;
+        const descriptionPreview =
+            job.description.slice(0, previewMaxLength).replaceAll('\n', ' ') +
+            (job.description.length > previewMaxLength ? '...' : '');
 
         const output = `{
   Title: ${job.title}
-  Description: '${descriptionPreview}${job.description.length > 100 ? "...'" : "'"}
+  Description: '${descriptionPreview}'
   Keywords: [ ${job.keywords.join(', ')} ]
   Classification: {
     score: ${job.classification.score}
