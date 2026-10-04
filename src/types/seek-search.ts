@@ -118,6 +118,7 @@ export enum LOCATION_TYPE {
 
 export enum WORK_ARRANGEMENT {
     HYBRID = 'Hybrid',
+    REMOTE = 'Remote',
 }
 
 export enum JOB_KEYWORD {

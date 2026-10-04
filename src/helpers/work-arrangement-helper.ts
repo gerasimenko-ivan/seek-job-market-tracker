@@ -2,6 +2,7 @@ import { WORK_ARRANGEMENT } from '../types/seek-search';
 
 const WORK_ARRANGEMENT_BY_TEXT: Record<string, WORK_ARRANGEMENT> = {
     '(Hybrid)': WORK_ARRANGEMENT.HYBRID,
+    '(Remote)': WORK_ARRANGEMENT.REMOTE,
 };
 
 export function workArrangementFromText(
