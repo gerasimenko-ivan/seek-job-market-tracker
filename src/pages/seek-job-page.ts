@@ -17,6 +17,7 @@ export interface JobPage {
     description: string;
     keywords: JOB_KEYWORD[];
     classification: KeywordsClassification;
+    url: string | null;
 }
 
 export class SeekJobPage {
@@ -45,6 +46,16 @@ export class SeekJobPage {
         const description = await job.getByTestId('jobAdDetails').innerText();
         const keywords = extractJobKeywords(`${title} ${description}`);
 
+        const relativeUrl = await job
+            .locator('a[href*="/job/"]')
+            .first()
+            .getAttribute('href');
+
+        const url = relativeUrl
+            ? new URL(relativeUrl, this.page.url()).toString()
+            : null;
+
+
         this.jobPage = {
             title,
             description,
@@ -52,6 +63,7 @@ export class SeekJobPage {
             location: await job.getByTestId('job-detail-location').innerText(),
             keywords,
             classification: classifyJobKeywords(keywords),
+            url,
         };
 
         return this.jobPage;
@@ -77,6 +89,7 @@ export class SeekJobPage {
     topKeywords: [ ${job.classification.topKeywords.join(', ')} ]
     bottomKeywords: [ ${job.classification.bottomKeywords.join(', ')} ]
   }
+  URL: ${job.url ?? 'N/A'}
 }`;
 
         console.log(output);
