@@ -55,7 +55,6 @@ export class SeekJobPage {
             ? new URL(relativeUrl, this.page.url()).toString()
             : null;
 
-
         this.jobPage = {
             title,
             description,
@@ -73,11 +72,12 @@ export class SeekJobPage {
         return this.jobPage ?? (await this.updateJobPage());
     }
 
-    async print(): Promise<void> {
-        const job = await this.getJobPage();
+    static printJobPage(job: JobPage): void {
         const previewMaxLength = 100;
         const descriptionPreview =
-            job.description.slice(0, previewMaxLength).replaceAll('\n', ' ') +
+            job.description
+                .slice(0, previewMaxLength)
+                .replaceAll('\n', ' ') +
             (job.description.length > previewMaxLength ? '...' : '');
 
         const output = `{
@@ -93,5 +93,9 @@ export class SeekJobPage {
 }`;
 
         console.log(output);
+    }
+
+    async print(): Promise<void> {
+        SeekJobPage.printJobPage(await this.getJobPage());
     }
 }
