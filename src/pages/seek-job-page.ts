@@ -83,6 +83,7 @@ export class SeekJobPage {
         const output = `{
   Title: ${job.title}
   Description: '${descriptionPreview}'
+  Location: ${job.location}
   Keywords: [ ${job.keywords.join(', ')} ]
   Classification: {
     score: ${job.classification.score}
