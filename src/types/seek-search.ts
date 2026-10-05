@@ -134,6 +134,8 @@ export enum JOB_KEYWORD {
     PLAYWRIGHT = 'Playwright',
     SELENIUM = 'Selenium',
     CYPRESS = 'Cypress',
+    TEST_NG = 'TestNG',
+    J_UNIT = 'JUnit',
     TRICENTIS_TOSCA = 'Tricentis TOSCA',
     ESPRESSO = 'Espresso', // Android testing framework
     UI_AUTOMATOR = 'UI Automator', // black-box UI testing on Android
@@ -179,6 +181,7 @@ export enum JOB_KEYWORD {
 
     // Enterprise software / business systems
     DOT_NET = '.NET',
+    NODE_JS = 'NodeJS',
     SAP = 'SAP',
     ERP = 'ERP',
 
@@ -186,7 +189,8 @@ export enum JOB_KEYWORD {
     TEST_CASES = 'test cases',
     TEST_PLANS = 'test plans',
     UAT = 'UAT',
-    AI_DRIVEN_TESTING = 'ai-driven testing',
+    AI_DRIVEN_TESTING = 'AI-driven testing',
+    AI_ASSISTED_TESTING = 'AI-assisted testing',
 
     // Job seniority / role
     SENIOR = 'senior',

@@ -20,6 +20,8 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.PLAYWRIGHT]: 11,
     [JOB_KEYWORD.SELENIUM]: 7,
     [JOB_KEYWORD.CYPRESS]: 5,
+    [JOB_KEYWORD.TEST_NG]: 5,
+    [JOB_KEYWORD.J_UNIT]: 5,
     [JOB_KEYWORD.TRICENTIS_TOSCA]: 5,
     [JOB_KEYWORD.ESPRESSO]: -5,
     [JOB_KEYWORD.UI_AUTOMATOR]: -5,
@@ -63,8 +65,9 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.IOS]: 5,
     [JOB_KEYWORD.HARDWARE]: -5,
 
-    // Enterprise software / business systems
+    // Enterprise software / business systems / environments
     [JOB_KEYWORD.DOT_NET]: 5,
+    [JOB_KEYWORD.NODE_JS]: 7,
     [JOB_KEYWORD.SAP]: 0,
     [JOB_KEYWORD.ERP]: 0,
 
@@ -73,6 +76,7 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.TEST_PLANS]: 7,
     [JOB_KEYWORD.UAT]: 7,
     [JOB_KEYWORD.AI_DRIVEN_TESTING]: 7,
+    [JOB_KEYWORD.AI_ASSISTED_TESTING]: 7,
 
     // Job seniority / role
     [JOB_KEYWORD.SENIOR]: 0,
