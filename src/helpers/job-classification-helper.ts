@@ -23,6 +23,7 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.TEST_NG]: 5,
     [JOB_KEYWORD.J_UNIT]: 5,
     [JOB_KEYWORD.TRICENTIS_TOSCA]: 5,
+    [JOB_KEYWORD.CUCUMBER]: 0,
     [JOB_KEYWORD.ESPRESSO]: -5,
     [JOB_KEYWORD.UI_AUTOMATOR]: -5,
     [JOB_KEYWORD.APPIUM]: -5,
@@ -35,6 +36,9 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.JIRA]: 7,
     [JOB_KEYWORD.HP_ALM]: 5,
     [JOB_KEYWORD.TEST_RAIL]: 5,
+    [JOB_KEYWORD.XRAY]: 0,
+    [JOB_KEYWORD.ZEPHYR]: 0,
+    [JOB_KEYWORD.QTEST]: 0,
 
     // Technical skills
     [JOB_KEYWORD.API]: 7,
@@ -48,6 +52,7 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     // CI/CD & DevOps
     [JOB_KEYWORD.CI_CD]: 7,
     [JOB_KEYWORD.JENKINS]: 5,
+    [JOB_KEYWORD.BAMBOO]: 5,
     [JOB_KEYWORD.GITHUB_ACTIONS]: 5,
     [JOB_KEYWORD.GITLAB_CI]: 5,
     [JOB_KEYWORD.AZURE_DEVOPS]: 5,
@@ -68,6 +73,7 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     // Enterprise software / business systems / environments
     [JOB_KEYWORD.DOT_NET]: 5,
     [JOB_KEYWORD.NODE_JS]: 7,
+    [JOB_KEYWORD.JAVA_SPRINGBOOT]: 3,
     [JOB_KEYWORD.SAP]: 0,
     [JOB_KEYWORD.ERP]: 0,
 

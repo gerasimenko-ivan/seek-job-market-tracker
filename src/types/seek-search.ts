@@ -137,6 +137,7 @@ export enum JOB_KEYWORD {
     TEST_NG = 'TestNG',
     J_UNIT = 'JUnit',
     TRICENTIS_TOSCA = 'Tricentis TOSCA',
+    CUCUMBER = 'Cucumber', // BDD automation framework
     ESPRESSO = 'Espresso', // Android testing framework
     UI_AUTOMATOR = 'UI Automator', // black-box UI testing on Android
     APPIUM = 'Appium', // UI automation of many app platforms, including mobile (iOS, Android, ...)
@@ -149,6 +150,9 @@ export enum JOB_KEYWORD {
     JIRA = 'Jira',
     HP_ALM = 'HP ALM',
     TEST_RAIL = 'TestRail',
+    XRAY = 'Xray',
+    ZEPHYR = 'Zephyr',
+    QTEST = 'qTest',
 
     // Technical skills
     API = 'API',
@@ -162,6 +166,7 @@ export enum JOB_KEYWORD {
     // CI/CD & DevOps
     CI_CD = 'CI/CD',
     JENKINS = 'Jenkins',
+    BAMBOO = 'Bamboo',
     GITHUB_ACTIONS = 'GitHub Actions',
     GITLAB_CI = 'GitLab CI',
     AZURE_DEVOPS = 'Azure DevOps',
@@ -182,6 +187,7 @@ export enum JOB_KEYWORD {
     // Enterprise software / business systems
     DOT_NET = '.NET',
     NODE_JS = 'NodeJS',
+    JAVA_SPRINGBOOT = 'Java SpringBoot',
     SAP = 'SAP',
     ERP = 'ERP',
 
