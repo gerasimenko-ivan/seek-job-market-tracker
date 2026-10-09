@@ -63,6 +63,7 @@ export class SeekSearchPage {
 
     // results
     readonly totalJobsMessage: Locator;
+    readonly totalJobsMessage2: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -85,6 +86,7 @@ export class SeekSearchPage {
             .last();
 
         this.totalJobsMessage = page.getByTestId('totalJobsMessage');
+        this.totalJobsMessage2 = page.getByTestId('jobCounter');
 
         this.salaryButton = page.getByTestId('toggleSalaryRangePanel').last();
         this.salaryFromButton = page.getByTestId('salaryFieldFrom').last();
@@ -202,9 +204,14 @@ export class SeekSearchPage {
         if (searchResult === 'NO_RESULTS') {
             totalJobsMessage = FILTER_MESSAGE.NO_RESULTS;
             totalJobs = 0;
-        } else {
+        } else if (searchResult === 'JOBS_FOUND') {
             totalJobsMessage = await this.totalJobsMessage.textContent();
             totalJobs = parseJobsCount(totalJobsMessage);
+        } else if (searchResult === 'JOBS_FOUND_2') {
+            totalJobsMessage = await this.totalJobsMessage2.textContent();
+            totalJobs = parseJobsCount(totalJobsMessage);
+        } else {
+            throw new Error(`Unexpected search result: '${searchResult}'`);
         }
 
         if (params?.printLogs) {
@@ -230,7 +237,9 @@ export class SeekSearchPage {
         };
     }
 
-    async waitForSearchResult(): Promise<'NO_RESULTS' | 'JOBS_FOUND'> {
+    async waitForSearchResult(): Promise<
+        'NO_RESULTS' | 'JOBS_FOUND' | 'JOBS_FOUND_2'
+    > {
         // TODO: replace fixed wait with proper synchronization
         await this.page.waitForTimeout(1000);
 
@@ -238,6 +247,10 @@ export class SeekSearchPage {
             this.totalJobsMessage
                 .waitFor({ state: 'visible', timeout: 15000 })
                 .then(() => 'JOBS_FOUND' as const),
+
+            this.totalJobsMessage2
+                .waitFor({ state: 'visible', timeout: 15000 })
+                .then(() => 'JOBS_FOUND_2' as const),
 
             this.filterMessageNoResults
                 .waitFor({ state: 'visible', timeout: 15000 })
