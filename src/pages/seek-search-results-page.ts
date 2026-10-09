@@ -21,10 +21,22 @@ export class SeekSearchResultsPage {
 
     readonly jobCard = (index: number) => this.jobCards.nth(index);
 
+    readonly paginationOfResults: Locator;
+    readonly resultPages: Locator;
+    readonly resultPage = (index: number) =>
+        this.resultPages.nth(index);
+
     constructor(page: Page) {
         this.page = page;
 
         this.jobCards = this.page.locator('[data-testid="job-card"]');
+
+        this.paginationOfResults = this.page.locator(
+            '[aria-label="Pagination of results"]',
+        );
+        this.resultPages = this.paginationOfResults.locator(
+            '//*[contains(@aria-label,"Go to page")]',
+        );
     }
 
     async getJobCardCount(): Promise<number> {
@@ -76,5 +88,17 @@ export class SeekSearchResultsPage {
 
     async scrollToJobCard(index: number): Promise<void> {
         await this.jobCard(index).scrollIntoViewIfNeeded();
+    }
+
+    async isPaginationVisible(): Promise<boolean> {
+        return this.paginationOfResults.isVisible();
+    }
+
+    async getResultPagesCount(): Promise<number> {
+        return this.resultPages.count();
+    }
+
+    async clickResultPage(index: number): Promise<void> {
+        await this.resultPage(index).click();
     }
 }
