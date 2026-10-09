@@ -52,5 +52,36 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
                 jobsCounts,
             });
         });
+
+        test.afterEach(async ({ page }, testInfo) => {
+            if (testInfo.status !== 'failed') {
+                return;
+            }
+
+            try {
+                const screenshot = await page.screenshot({
+                    path: testInfo.outputPath('failure.png'),
+                    fullPage: true,
+                });
+
+                await testInfo.attach('Failure screenshot', {
+                    body: screenshot,
+                    contentType: 'image/png',
+                });
+            } catch (error) {
+                console.warn('Could not capture failure screenshot:', error);
+            }
+
+            try {
+                const html = await page.content();
+
+                await testInfo.attach('DOM', {
+                    body: html,
+                    contentType: 'text/html',
+                });
+            } catch (error) {
+                console.warn('Could not capture failure DOM:', error);
+            }
+        });
     }
 }
