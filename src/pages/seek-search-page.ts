@@ -90,10 +90,7 @@ export class SeekSearchPage {
         this.salaryFromButton = page.getByTestId('salaryFieldFrom').last();
         this.salaryToButton = page.getByTestId('salaryFieldTo').last();
 
-        this.filterMessageNoResults = page
-            .getByTestId('behavioural-cues-filters-message')
-            .getByText(FILTER_MESSAGE.NO_RESULTS)
-            .last();
+        this.filterMessageNoResults = page.getByTestId('search-zero-results');
     }
 
     // actions
