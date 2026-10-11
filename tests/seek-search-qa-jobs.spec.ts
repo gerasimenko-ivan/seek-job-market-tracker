@@ -14,7 +14,7 @@ const commonSearchParams: Omit<
 
 defineJobMarketTests([
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['typescript', 'playwright'],
             location: 'All Auckland',
             ...commonSearchParams,
@@ -22,7 +22,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-ts-pw-auck.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['typescript', 'playwright'],
             location: 'All New Zealand',
             ...commonSearchParams,
@@ -30,7 +30,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-ts-pw-nz.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['playwright'],
             location: 'All Auckland',
             ...commonSearchParams,
@@ -38,7 +38,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-pw-auck.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['playwright'],
             location: 'All New Zealand',
             ...commonSearchParams,
@@ -46,7 +46,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-pw-nz.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['typescript'],
             location: 'All Auckland',
             ...commonSearchParams,
@@ -54,7 +54,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-ts-auck.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['typescript'],
             location: 'All New Zealand',
             ...commonSearchParams,
@@ -62,7 +62,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-ts-nz.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['QA'],
             location: 'All Auckland',
             ...commonSearchParams,
@@ -70,7 +70,7 @@ defineJobMarketTests([
         outputFile: 'output/csv/qa/seek-job-market-qa-auck.csv',
     },
     {
-        search: {
+        searchParamsWithoutSalary: {
             keywords: ['QA'],
             location: 'All New Zealand',
             ...commonSearchParams,

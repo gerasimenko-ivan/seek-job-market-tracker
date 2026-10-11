@@ -8,7 +8,7 @@ import { salaryKey } from '../helpers/salary-helper';
 import { saveJobMarketCsvRow } from '../helpers/job-market-csv';
 
 export interface JobMarketScenario {
-    search: SearchParamsWithoutSalary;
+    searchParamsWithoutSalary: SearchParamsWithoutSalary;
     outputFile: string;
 }
 
@@ -44,15 +44,15 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
         }
     });
 
-    for (const { search, outputFile } of scenarios) {
-        test(`SEEK search: ${search.keywords.join(' ')} - ${search.location}`, async ({
+    for (const { searchParamsWithoutSalary, outputFile } of scenarios) {
+        test(`SEEK search: ${searchParamsWithoutSalary.keywords.join(' ')} - ${searchParamsWithoutSalary.location}`, async ({
             page,
         }) => {
             test.setTimeout(100000);
 
             const searches: SearchParamsWithSalary[] = salaryParams.map(
                 (salary) => ({
-                    ...search,
+                    ...searchParamsWithoutSalary,
                     salary,
                 }),
             );
@@ -79,7 +79,7 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
 
             saveJobMarketCsvRow({
                 filePath: outputFile,
-                search: search,
+                search: searchParamsWithoutSalary,
                 jobsCounts,
             });
         });
