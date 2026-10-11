@@ -28,7 +28,7 @@ export function createJobMarketCsvRow(
     const salaryValues = Object.fromEntries(
         jobMarketSalaryColumns.map((column) => [
             column,
-            getJobsCount(param.jobsCounts, column),
+            getJobsCount(param.jobCountsBySalary, column),
         ]),
     ) as Record<JobMarketSalaryColumn, number>;
 

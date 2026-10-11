@@ -57,7 +57,7 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
                 }),
             );
 
-            const jobsCounts = new Map<string, number>();
+            const jobCountsBySalary = new Map<string, number>();
             const seekSearch = new SeekSearchPage(page);
 
             for (const search of searches) {
@@ -69,18 +69,18 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
 
                 expectJobsCountMessage(searchPageState);
 
-                jobsCounts.set(
+                jobCountsBySalary.set(
                     salaryKey(search.salary),
                     searchPageState.totalJobs,
                 );
             }
 
-            console.log(jobsCounts);
+            console.log(jobCountsBySalary);
 
             saveJobMarketCsvRow({
                 filePath: outputFile,
                 searchParamsWithoutSalary,
-                jobsCounts,
+                jobCountsBySalary,
             });
         });
     }
