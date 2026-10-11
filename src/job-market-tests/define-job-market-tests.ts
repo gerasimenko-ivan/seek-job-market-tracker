@@ -13,6 +13,37 @@ export interface JobMarketScenario {
 }
 
 export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
+    test.afterEach(async ({ page }, testInfo) => {
+        if (testInfo.status !== 'failed') {
+            return;
+        }
+
+        try {
+            const screenshot = await page.screenshot({
+                path: testInfo.outputPath('failure.png'),
+                fullPage: true,
+            });
+
+            await testInfo.attach('Failure screenshot', {
+                body: screenshot,
+                contentType: 'image/png',
+            });
+        } catch (error) {
+            console.warn('Could not capture failure screenshot:', error);
+        }
+
+        try {
+            const html = await page.content();
+
+            await testInfo.attach('DOM', {
+                body: html,
+                contentType: 'text/html',
+            });
+        } catch (error) {
+            console.warn('Could not capture failure DOM:', error);
+        }
+    });
+
     for (const { search, outputFile } of scenarios) {
         test(`SEEK search: ${search.keywords.join(' ')} - ${search.location}`, async ({
             page,
@@ -51,37 +82,6 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
                 search: search,
                 jobsCounts,
             });
-        });
-
-        test.afterEach(async ({ page }, testInfo) => {
-            if (testInfo.status !== 'failed') {
-                return;
-            }
-
-            try {
-                const screenshot = await page.screenshot({
-                    path: testInfo.outputPath('failure.png'),
-                    fullPage: true,
-                });
-
-                await testInfo.attach('Failure screenshot', {
-                    body: screenshot,
-                    contentType: 'image/png',
-                });
-            } catch (error) {
-                console.warn('Could not capture failure screenshot:', error);
-            }
-
-            try {
-                const html = await page.content();
-
-                await testInfo.attach('DOM', {
-                    body: html,
-                    contentType: 'text/html',
-                });
-            } catch (error) {
-                console.warn('Could not capture failure DOM:', error);
-            }
         });
     }
 }
