@@ -3,7 +3,7 @@ import { SearchParamsWithoutSalary, SearchParamsWithSalary } from '../types/seek
 import { salaryParams } from '../data/job-market-salary-param';
 import { saveJobMarketCsvRow } from '../helpers/job-market-csv';
 import { collectJobCountsBySalary } from './collect-job-counts-by-salary';
-import { attachFailureDiagnostics } from './attach-failure-diagnostics';
+import { attachFailureDiagnostics } from '../utils/attach-failure-diagnostics';
 
 export interface JobMarketScenario {
     searchParamsWithoutSalary: SearchParamsWithoutSalary;
