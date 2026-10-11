@@ -9,11 +9,13 @@ export interface AppendCsvRow {
 export function appendCsvRow(
     param: AppendCsvRow,
 ): void {
-    const csvRow = param.values.join(',');
+    const csvValuesRow = param.values.join(',');
 
     if (!existsSync(param.filePath)) {
-        appendFileSync(param.filePath, `${param.headers.join(',')}\n`);
+        const csvHeadersRow = param.headers.join(',');
+
+        appendFileSync(param.filePath, `${csvHeadersRow}\n`);
     }
 
-    appendFileSync(param.filePath, `${csvRow}\n`);
+    appendFileSync(param.filePath, `${csvValuesRow}\n`);
 }
