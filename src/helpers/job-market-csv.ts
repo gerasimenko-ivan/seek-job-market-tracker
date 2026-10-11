@@ -28,7 +28,7 @@ export function createJobMarketCsvRow(
     const salaryValues = Object.fromEntries(
         jobMarketSalaryColumns.map((column) => [
             column,
-            getJobsCount(param.jobCountsBySalary, column),
+            getJobCountBySalary(param.jobCountsBySalary, column),
         ]),
     ) as Record<JobMarketSalaryColumn, number>;
 
@@ -38,11 +38,11 @@ export function createJobMarketCsvRow(
     };
 }
 
-function getJobsCount(
-    jobsCounts: Map<string, number>,
+function getJobCountBySalary(
+    jobCountsBySalary: Map<string, number>,
     key: JobMarketSalaryColumn,
 ): number {
-    const count = jobsCounts.get(key);
+    const count = jobCountsBySalary.get(key);
 
     if (count === undefined) {
         throw new Error(`Jobs count not found for key "${key}"`);
