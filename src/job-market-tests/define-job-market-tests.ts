@@ -3,6 +3,7 @@ import { SearchParamsWithoutSalary, SearchParamsWithSalary } from '../types/seek
 import { salaryParams } from '../data/job-market-salary-param';
 import { saveJobMarketCsvRow } from '../helpers/job-market-csv';
 import { collectJobCountsBySalary } from './collect-job-counts-by-salary';
+import { attachFailureDiagnostics } from './attach-failure-diagnostics';
 
 export interface JobMarketScenario {
     searchParamsWithoutSalary: SearchParamsWithoutSalary;
@@ -11,34 +12,7 @@ export interface JobMarketScenario {
 
 export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
     test.afterEach(async ({ page }, testInfo) => {
-        if (testInfo.status !== 'failed') {
-            return;
-        }
-
-        try {
-            const screenshot = await page.screenshot({
-                path: testInfo.outputPath('failure.png'),
-                fullPage: true,
-            });
-
-            await testInfo.attach('Failure screenshot', {
-                body: screenshot,
-                contentType: 'image/png',
-            });
-        } catch (error) {
-            console.warn('Could not capture failure screenshot:', error);
-        }
-
-        try {
-            const html = await page.content();
-
-            await testInfo.attach('DOM', {
-                body: html,
-                contentType: 'text/html',
-            });
-        } catch (error) {
-            console.warn('Could not capture failure DOM:', error);
-        }
+        await attachFailureDiagnostics({ page, testInfo });
     });
 
     for (const { searchParamsWithoutSalary, outputFile } of scenarios) {
