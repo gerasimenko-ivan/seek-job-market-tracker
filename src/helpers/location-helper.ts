@@ -1,4 +1,4 @@
-import { LOCATION_TYPE } from '../types/seek-search';
+import { LOCATION_TYPE } from '../types/seek-search.js';
 
 export function locationTypeFromText(
     location: string,

@@ -8,7 +8,8 @@
       "skipLibCheck": true,
       "outDir": "dist",
       "sourceMap": true,
-      "types": ["node"]
+      "types": ["node"],
+      "verbatimModuleSyntax": true,
   },
   "include": ["src/**/*.ts"]
 }

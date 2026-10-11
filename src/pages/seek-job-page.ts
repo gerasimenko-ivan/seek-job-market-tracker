@@ -1,7 +1,9 @@
-import { Locator, Page } from '@playwright/test';
-import { JOB_KEYWORD } from '../types/seek-search';
-import { extractJobKeywords } from '../helpers/keyword-helper';
-import { classifyJobKeywords, KeywordsClassification } from '../helpers/job-classification-helper';
+import { JOB_KEYWORD } from '../types/seek-search.js';
+import { extractJobKeywords } from '../helpers/keyword-helper.js';
+import { classifyJobKeywords } from '../helpers/job-classification-helper.js';
+
+import type { Locator, Page } from '@playwright/test';
+import type { KeywordsClassification } from '../helpers/job-classification-helper.js';
 
 export interface JobPage {
     title: string;

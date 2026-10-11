@@ -1,4 +1,4 @@
-import { WORK_ARRANGEMENT } from '../types/seek-search';
+import { WORK_ARRANGEMENT } from '../types/seek-search.js';
 
 const WORK_ARRANGEMENT_BY_TEXT: Record<string, WORK_ARRANGEMENT> = {
     '(Hybrid)': WORK_ARRANGEMENT.HYBRID,

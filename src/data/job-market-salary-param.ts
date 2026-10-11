@@ -1,5 +1,7 @@
-import { SALARY_ANNUALLY, SALARY_HOURLY, SalaryParams } from '../types/seek-search';
-import { annually, hourly } from '../helpers/salary-helper';
+import { SALARY_ANNUALLY, SALARY_HOURLY } from '../types/seek-search.js';
+import { annually, hourly } from '../helpers/salary-helper.js';
+
+import type { SalaryParams } from '../types/seek-search.js';
 
 export const salaryParams: SalaryParams[] = [
     hourly(SALARY_HOURLY.NZD_35),

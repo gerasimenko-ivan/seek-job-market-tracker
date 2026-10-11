@@ -1,4 +1,4 @@
-import { SALARY_PERIOD } from '../types/seek-search';
+import { SALARY_PERIOD } from '../types/seek-search.js';
 
 export interface TextForUrlParams {
     text: string;

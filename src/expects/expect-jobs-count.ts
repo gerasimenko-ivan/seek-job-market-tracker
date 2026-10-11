@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
-import { SearchPageState } from '../types/seek-search';
+
+import type { SearchPageState } from '../types/seek-search.js';
 
 export type ExpectJobsCountMessage = Pick<
     SearchPageState,

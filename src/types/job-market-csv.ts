@@ -1,4 +1,4 @@
-import { SearchParamsWithoutSalary } from './seek-search';
+import type { SearchParamsWithoutSalary } from './seek-search.js';
 
 export interface CreateJobMarketCsvRow {
     searchParamsWithoutSalary: SearchParamsWithoutSalary;

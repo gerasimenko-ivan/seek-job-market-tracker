@@ -1,6 +1,8 @@
-import { expect, Page } from '@playwright/test';
-import { SearchParams } from '../types/seek-search';
-import { textForUrl, moneyForUrl, salaryPeriodForUrl } from '../helpers/string-helper';
+import { expect } from '@playwright/test';
+import { textForUrl, moneyForUrl, salaryPeriodForUrl } from '../helpers/string-helper.js';
+
+import type { Page } from '@playwright/test';
+import type { SearchParams } from '../types/seek-search.js';
 
 export interface ExpectSearchUrlParams {
     page: Page;

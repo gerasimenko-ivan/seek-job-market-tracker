@@ -1,24 +1,26 @@
 {
-  "name": "seek-job-market-tracker",
-  "version": "1.0.0",
-  "description": "Collect data from seek co nz about number of jobs with certain params",
-  "main": "index.js",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gerasimenko-ivan/seek-job-market-tracker.git"
-  },
-  "keywords": [],
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/gerasimenko-ivan/seek-job-market-tracker/issues"
-  },
-  "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme",
-  "devDependencies": {
-    "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.2",
-    "prettier": "^3.9.7",
-    "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
-  }
+    "name": "seek-job-market-tracker",
+    "version": "1.0.0",
+    "description": "Collect data from seek co nz about number of jobs with certain params",
+    "main": "index.js",
+    "scripts": {
+        "typecheck": "tsc --noEmit"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gerasimenko-ivan/seek-job-market-tracker.git"
+    },
+    "keywords": [],
+    "type": "module",
+    "bugs": {
+        "url": "https://github.com/gerasimenko-ivan/seek-job-market-tracker/issues"
+    },
+    "homepage": "https://github.com/gerasimenko-ivan/seek-job-market-tracker#readme",
+    "devDependencies": {
+        "@playwright/test": "^1.63.0",
+        "@types/node": "^26.6.2",
+        "prettier": "^3.9.7",
+        "tsx": "^4.23.13",
+        "typescript": "^7.0.2"
+    }
 }

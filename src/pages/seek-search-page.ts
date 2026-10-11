@@ -1,16 +1,20 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import {
     FILTER_MESSAGE,
-    JOB_TYPE,
-    JobClassification,
     SALARY_ANNUALLY,
     SALARY_HOURLY,
     SALARY_PERIOD,
+} from '../types/seek-search.js';
+import { parseJobsCount } from '../helpers/string-helper.js';
+
+import type { Locator, Page } from '@playwright/test';
+import type {
+    JOB_TYPE,
+    JobClassification,
     SalaryParams,
     SearchPageState,
     SearchParams,
-} from '../types/seek-search';
-import { parseJobsCount } from '../helpers/string-helper';
+} from '../types/seek-search.js';
 
 export interface GetSearchPageStateParams {
     printLogs?: boolean;

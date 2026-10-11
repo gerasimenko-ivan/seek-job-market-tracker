@@ -1,4 +1,4 @@
-import { JOB_KEYWORD } from '../types/seek-search';
+import { JOB_KEYWORD } from '../types/seek-search.js';
 
 export interface KeywordsClassification {
     score: number;

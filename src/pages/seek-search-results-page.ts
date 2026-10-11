@@ -1,8 +1,9 @@
-import { Locator, Page } from '@playwright/test';
-import { locationTypeFromText } from '../helpers/location-helper';
-import { JOB_KEYWORD, LOCATION_TYPE, WORK_ARRANGEMENT } from '../types/seek-search';
-import { workArrangementFromText } from '../helpers/work-arrangement-helper';
-import { extractJobKeywords } from '../helpers/keyword-helper';
+import { locationTypeFromText } from '../helpers/location-helper.js';
+import { JOB_KEYWORD, LOCATION_TYPE, WORK_ARRANGEMENT } from '../types/seek-search.js';
+import { workArrangementFromText } from '../helpers/work-arrangement-helper.js';
+import { extractJobKeywords } from '../helpers/keyword-helper.js';
+
+import type { Locator, Page } from '@playwright/test';
 
 export interface JobCard {
     title: string;

@@ -1,9 +1,13 @@
 import { test } from '@playwright/test';
-import { SearchParamsWithoutSalary, SearchParamsWithSalary } from '../types/seek-search';
-import { salaryParams } from '../data/job-market-salary-param';
-import { saveJobMarketCsvRow } from '../helpers/job-market-csv';
-import { collectJobCountsBySalary } from './collect-job-counts-by-salary';
-import { attachFailureDiagnostics } from '../utils/attach-failure-diagnostics';
+import { salaryParams } from '../data/job-market-salary-param.js';
+import { saveJobMarketCsvRow } from '../helpers/job-market-csv.js';
+import { collectJobCountsBySalary } from './collect-job-counts-by-salary.js';
+import { attachFailureDiagnostics } from '../utils/attach-failure-diagnostics.js';
+
+import type {
+    SearchParamsWithoutSalary,
+    SearchParamsWithSalary,
+} from '../types/seek-search.js';
 
 export interface JobMarketScenario {
     searchParamsWithoutSalary: SearchParamsWithoutSalary;

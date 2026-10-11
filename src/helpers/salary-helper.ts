@@ -1,10 +1,7 @@
-import {
-    SALARY_ANNUALLY,
-    SALARY_HOURLY,
-    SALARY_PERIOD,
-    SalaryParams,
-} from '../types/seek-search';
-import { moneyForKey } from './string-helper';
+import { SALARY_ANNUALLY, SALARY_HOURLY, SALARY_PERIOD } from '../types/seek-search.js';
+import { moneyForKey } from './string-helper.js';
+
+import type { SalaryParams } from '../types/seek-search.js';
 
 export function hourly(from: SALARY_HOURLY): SalaryParams {
     return {
