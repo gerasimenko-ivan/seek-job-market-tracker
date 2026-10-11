@@ -1,11 +1,12 @@
-import { Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import type { SearchParamsWithSalary } from '../types/seek-search';
+
 import { expectJobsCountMessage } from '../expects/expect-jobs-count';
 import { salaryKey } from '../helpers/salary-helper';
 import { expectSearchUrl } from '../expects/expect-search-url';
-import { SearchParamsWithSalary } from '../types/seek-search';
 import { SeekSearchPage } from '../pages/seek-search-page';
 
-export interface CollectJobCountsBySalary {
+interface CollectJobCountsBySalary {
     page: Page;
     searches: SearchParamsWithSalary[];
 }

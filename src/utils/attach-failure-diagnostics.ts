@@ -1,6 +1,6 @@
-import { Page, TestInfo } from '@playwright/test';
+import type { Page, TestInfo } from '@playwright/test';
 
-export interface AttachFailureDiagnostics {
+interface AttachFailureDiagnostics {
     page: Page;
     testInfo: TestInfo;
 }
