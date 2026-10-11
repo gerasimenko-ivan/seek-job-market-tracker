@@ -1,5 +1,5 @@
 import { JOB_CATEGORY, JOB_ICT_SUBCATEGORY, JOB_TYPE, SearchParamsWithoutSalary } from '../src/types/seek-search';
-import { defineJobMarketTests } from '../src/job-market/define-job-market-tests';
+import { defineJobMarketTests } from '../src/job-market-tests/define-job-market-tests';
 
 const commonSearchParams: Omit<
     SearchParamsWithoutSalary,
