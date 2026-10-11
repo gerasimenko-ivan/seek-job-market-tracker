@@ -1,7 +1,7 @@
 import { SearchParamsWithoutSalary } from './seek-search';
 
 export interface CreateJobMarketCsvRow {
-    search: SearchParamsWithoutSalary;
+    searchParamsWithoutSalary: SearchParamsWithoutSalary;
     jobsCounts: Map<string, number>;
 }
 

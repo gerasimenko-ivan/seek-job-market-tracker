@@ -79,7 +79,7 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
 
             saveJobMarketCsvRow({
                 filePath: outputFile,
-                search: searchParamsWithoutSalary,
+                searchParamsWithoutSalary,
                 jobsCounts,
             });
         });

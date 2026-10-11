@@ -13,15 +13,15 @@ export function createJobMarketCsvRow(
     param: CreateJobMarketCsvRow,
 ): JobMarketCsvRow {
     const date = new Date().toISOString().slice(0, 10);
-    const classification = param.search.classification?.subcategory
-        ? `${param.search.classification.category} - ${param.search.classification.subcategory}`
-        : (param.search.classification?.category ?? '');
+    const classification = param.searchParamsWithoutSalary.classification?.subcategory
+        ? `${param.searchParamsWithoutSalary.classification.category} - ${param.searchParamsWithoutSalary.classification.subcategory}`
+        : (param.searchParamsWithoutSalary.classification?.category ?? '');
 
     const row: JobMarketCsvRowBase = {
         date,
-        keywords: param.search.keywords.join(' '),
-        location: param.search.location,
-        type: param.search.type,
+        keywords: param.searchParamsWithoutSalary.keywords.join(' '),
+        location: param.searchParamsWithoutSalary.location,
+        type: param.searchParamsWithoutSalary.type,
         classification,
     };
 
