@@ -4,7 +4,7 @@ import { textForUrl, moneyForUrl, salaryPeriodForUrl } from '../helpers/string-h
 import type { Page } from '@playwright/test';
 import type { SearchParams } from '../types/seek-search.js';
 
-export interface ExpectSearchUrlParams {
+interface ExpectSearchUrlParams {
     page: Page;
     search: SearchParams;
 }

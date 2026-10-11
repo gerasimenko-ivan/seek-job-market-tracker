@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 
 import type { SearchPageState } from '../types/seek-search.js';
 
-export type ExpectJobsCountMessage = Pick<
+type ExpectJobsCountMessage = Pick<
     SearchPageState,
     'totalJobsMessage' | 'totalJobs'
 >;
