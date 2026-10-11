@@ -22,7 +22,9 @@ export type JobMarketCsvRow = JobMarketCsvRowBase &
 
 export const jobMarketSalaryColumns = [
     'hourly_35_plus',
+    'hourly_40_plus',
     'hourly_50_plus',
+    'hourly_60_plus',
     'hourly_75_plus',
     'hourly_100_plus',
     'annual_80K_plus',

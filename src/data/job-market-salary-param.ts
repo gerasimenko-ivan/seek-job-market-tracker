@@ -3,7 +3,9 @@ import { annually, hourly } from '../helpers/salary-helper';
 
 export const salaryParams: SalaryParams[] = [
     hourly(SALARY_HOURLY.NZD_35),
+    hourly(SALARY_HOURLY.NZD_40),
     hourly(SALARY_HOURLY.NZD_50),
+    hourly(SALARY_HOURLY.NZD_60),
     hourly(SALARY_HOURLY.NZD_75),
     hourly(SALARY_HOURLY.NZD_100),
     annually(SALARY_ANNUALLY.NZD_80K),
