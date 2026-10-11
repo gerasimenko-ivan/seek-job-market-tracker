@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import { SearchParamsWithoutSalary, SearchParamsWithSalary } from '../types/seek-search';
 import { salaryParams } from '../data/job-market-salary-param';
 import { SeekSearchPage } from '../pages/seek-search-page';
@@ -10,6 +10,40 @@ import { saveJobMarketCsvRow } from '../helpers/job-market-csv';
 export interface JobMarketScenario {
     searchParamsWithoutSalary: SearchParamsWithoutSalary;
     outputFile: string;
+}
+
+export interface CollectJobCountsBySalary {
+    page: Page;
+    searches: SearchParamsWithSalary[];
+}
+
+async function collectJobCountsBySalary(
+    params: CollectJobCountsBySalary,
+): Promise<Map<string, number>> {
+    const { page, searches } = params;
+
+    const seekSearch = new SeekSearchPage(page);
+    const jobCountsBySalary = new Map<string, number>();
+
+    for (const searchParamsWithSalary of searches) {
+        await seekSearch.search(searchParamsWithSalary);
+
+        await expectSearchUrl({
+            page,
+            search: searchParamsWithSalary,
+        });
+
+        const searchPageState = await seekSearch.getSearchState();
+
+        expectJobsCountMessage(searchPageState);
+
+        jobCountsBySalary.set(
+            salaryKey(searchParamsWithSalary.salary),
+            searchPageState.totalJobs,
+        );
+    }
+
+    return jobCountsBySalary;
 }
 
 export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
@@ -57,23 +91,8 @@ export function defineJobMarketTests(scenarios: JobMarketScenario[]): void {
                 }),
             );
 
-            const jobCountsBySalary = new Map<string, number>();
-            const seekSearch = new SeekSearchPage(page);
-
-            for (const search of searches) {
-                await seekSearch.search(search);
-
-                await expectSearchUrl({ page, search });
-
-                const searchPageState = await seekSearch.getSearchState();
-
-                expectJobsCountMessage(searchPageState);
-
-                jobCountsBySalary.set(
-                    salaryKey(search.salary),
-                    searchPageState.totalJobs,
-                );
-            }
+            const jobCountsBySalary =
+                await collectJobCountsBySalary({ page, searches });
 
             console.log(jobCountsBySalary);
 
