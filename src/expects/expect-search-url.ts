@@ -1,5 +1,9 @@
 import { expect } from '@playwright/test';
-import { textForUrl, moneyForUrl, salaryPeriodForUrl } from '../helpers/string-helper.js';
+import { textForUrl } from '../helpers/string-helper.js';
+import {
+    salaryValueForUrl,
+    salaryPeriodForUrl,
+} from '../helpers/salary-helper.js';
 
 import type { Page } from '@playwright/test';
 import type { SearchParams } from '../types/seek-search.js';
@@ -29,8 +33,8 @@ export async function expectSearchUrl(params: ExpectSearchUrlParams): Promise<vo
 
     if (salary) {
         const salaryRange =
-            `${salary.from ? moneyForUrl({ value: salary.from }) : ''}` +
-            `-${salary.to ? moneyForUrl({ value: salary.to }) : ''}`;
+            `${salary.from ? salaryValueForUrl({ value: salary.from }) : ''}` +
+            `-${salary.to ? salaryValueForUrl({ value: salary.to }) : ''}`;
 
         const urlParams =
             `salaryrange=${salaryRange}` +
