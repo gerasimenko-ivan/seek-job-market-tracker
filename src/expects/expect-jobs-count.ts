@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test';
-
-import type { SearchPageState } from '../types/seek-search.js';
+import { FILTER_MESSAGE, type SearchPageState } from '../types/seek-search.js';
 
 type ExpectJobsCountMessage = Pick<
     SearchPageState,
@@ -10,14 +9,13 @@ type ExpectJobsCountMessage = Pick<
 export function expectJobsCountMessage(param: ExpectJobsCountMessage): void {
     const { totalJobsMessage, totalJobs } = param;
 
-    if (totalJobs === 0) {
-        return;
-    }
+    const expectedMessage =
+        totalJobs === 0
+            ? FILTER_MESSAGE.NO_RESULTS
+            : `${totalJobs.toLocaleString('en-NZ')} job${totalJobs === 1 ? '' : 's'}`;
 
     expect(
         totalJobsMessage,
-        'Total jobs message should contain the correctly formatted job count',
-    ).toBe(
-        `${totalJobs.toLocaleString('en-NZ')} job${totalJobs === 1 ? '' : 's'}`,
-    );
+        'Total jobs message should match the expected job count',
+    ).toBe(expectedMessage);
 }
