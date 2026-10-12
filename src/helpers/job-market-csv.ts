@@ -1,11 +1,14 @@
-import { jobMarketCsvHeaders, jobMarketSalaryColumns } from '../types/job-market-csv.js';
 import { appendCsvRow } from '../utils/csv.js';
+import {
+    jobMarketCsvHeaders,
+    jobMarketSalaryColumns,
+    type JobMarketSalaryColumn,
+} from '../data/job-market-csv.js';
 
 import type {
     CreateJobMarketCsvRow,
     JobMarketCsvRow,
     JobMarketCsvRowBase,
-    JobMarketSalaryColumn,
     SaveJobMarketCsvRowParams,
 } from '../types/job-market-csv.js';
 
