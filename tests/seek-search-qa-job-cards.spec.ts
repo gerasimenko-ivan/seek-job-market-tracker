@@ -78,6 +78,8 @@ test('SEEK search and job classification', async ({ page }) => {
         console.log(`Job cards on page ${pageIndex + 1}: ${jobCardCount}`);
 
         for (let jobIndex = 0; jobIndex < jobCardCount; jobIndex++) {
+            console.log(`Click job card: ${jobIndex + 1}/${jobCardCount}`);
+
             await seekResults.clickJobCard(jobIndex);
 
             const job = await seekJob.updateJobPage();
