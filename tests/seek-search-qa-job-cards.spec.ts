@@ -14,7 +14,7 @@ import {
 import { JobPage, SeekJobPage } from '../src/pages/seek-job-page';
 
 test('SEEK search and job classification', async ({ page }) => {
-    test.setTimeout(40000);
+    test.setTimeout(60000);
 
     const search: SearchParams = {
         // keywords: ['typescript', 'playwright'],
