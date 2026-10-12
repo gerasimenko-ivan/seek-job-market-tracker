@@ -15,28 +15,30 @@ import type {
 export function createJobMarketCsvRow(
     param: CreateJobMarketCsvRow,
 ): JobMarketCsvRow {
-    const date = new Date().toISOString().slice(0, 10);
-    const classification = param.searchParamsWithoutSalary.classification?.subcategory
-        ? `${param.searchParamsWithoutSalary.classification.category} - ${param.searchParamsWithoutSalary.classification.subcategory}`
-        : (param.searchParamsWithoutSalary.classification?.category ?? '');
+    const { searchParamsWithoutSalary, jobCountsBySalary } = param;
 
-    const row: JobMarketCsvRowBase = {
+    const date = new Date().toISOString().slice(0, 10);
+    const classification = searchParamsWithoutSalary.classification?.subcategory
+        ? `${searchParamsWithoutSalary.classification.category} - ${searchParamsWithoutSalary.classification.subcategory}`
+        : (searchParamsWithoutSalary.classification?.category ?? '');
+
+    const rowBase: JobMarketCsvRowBase = {
         date,
-        keywords: param.searchParamsWithoutSalary.keywords.join(' '),
-        location: param.searchParamsWithoutSalary.location,
-        type: param.searchParamsWithoutSalary.type,
+        keywords: searchParamsWithoutSalary.keywords.join(' '),
+        location: searchParamsWithoutSalary.location,
+        type: searchParamsWithoutSalary.type,
         classification,
     };
 
     const salaryValues = Object.fromEntries(
         jobMarketSalaryColumns.map((column) => [
             column,
-            getJobCountBySalary(param.jobCountsBySalary, column),
+            getJobCountBySalary(jobCountsBySalary, column),
         ]),
     ) as Record<JobMarketSalaryColumn, number>;
 
     return {
-        ...row,
+        ...rowBase,
         ...salaryValues,
     };
 }
