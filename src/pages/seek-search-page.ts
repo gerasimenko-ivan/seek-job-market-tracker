@@ -67,6 +67,7 @@ export class SeekSearchPage {
 
     // results
     readonly totalJobsMessage: Locator;
+    /** SEEK shows two different total job messages occasionally */
     readonly totalJobsMessage2: Locator;
 
     constructor(page: Page) {
