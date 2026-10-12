@@ -13,24 +13,27 @@ export async function expectSearchUrl(params: ExpectSearchUrlParams): Promise<vo
     const { page, search } = params;
     const { keywords, location, type, classification, salary } = search;
 
+    const classificationPath = classification
+        ? `-in-${textForUrl({ text: classification.category, lowerCase: true })}` +
+          (classification.subcategory
+              ? `/${textForUrl({ text: classification.subcategory, lowerCase: true })}`
+              : '')
+        : '';
     const urlSubfolder =
         `${textForUrl({ text: keywords.join(' ') })}-jobs` +
-        (classification
-            ? `-in-${textForUrl({ text: classification.category, lowerCase: true })}` +
-              (classification.subcategory
-                  ? `/${textForUrl({ text: classification.subcategory, lowerCase: true })}`
-                  : '')
-            : '') +
+        classificationPath +
         `/in-${textForUrl({ text: location })}/` +
         textForUrl({ text: type, lowerCase: true });
 
     await expect(page).toHaveURL(new RegExp(urlSubfolder));
 
     if (salary) {
-        const urlParams =
-            'salaryrange=' +
+        const salaryRange =
             `${salary.from ? moneyForUrl({ value: salary.from }) : ''}` +
-            `-${salary.to ? moneyForUrl({ value: salary.to }) : ''}` +
+            `-${salary.to ? moneyForUrl({ value: salary.to }) : ''}`;
+
+        const urlParams =
+            `salaryrange=${salaryRange}` +
             `&salarytype=${salaryPeriodForUrl(salary.period)}`;
 
         await expect(page).toHaveURL(new RegExp(urlParams));
