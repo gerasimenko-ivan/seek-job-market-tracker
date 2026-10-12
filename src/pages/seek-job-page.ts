@@ -34,7 +34,7 @@ export class SeekJobPage {
     constructor(page: Page) {
         this.page = page;
 
-        this.job = this.page.getByTestId('jobDetailsPage');
+        this.job = page.getByTestId('jobDetailsPage');
 
         this.salaryUndisclosedIcon = this.job.locator(
             '[id="salaryUndisclosedIconId"]',
@@ -46,12 +46,16 @@ export class SeekJobPage {
 
         const title = await job.getByTestId('job-detail-title').innerText();
         const description = await job.getByTestId('jobAdDetails').innerText();
-        const keywords = extractJobKeywords(`${title} ${description}`);
-
+        const advertiser = await job.getByTestId('advertiser-name').innerText();
+        const location = await job
+            .getByTestId('job-detail-location')
+            .innerText();
         const relativeUrl = await job
             .locator('a[href*="/job/"]')
             .first()
             .getAttribute('href');
+
+        const keywords = extractJobKeywords(`${title} ${description}`);
 
         const url = relativeUrl
             ? new URL(relativeUrl, this.page.url()).toString()
@@ -60,8 +64,8 @@ export class SeekJobPage {
         this.jobPage = {
             title,
             description,
-            advertiser: await job.getByTestId('advertiser-name').innerText(),
-            location: await job.getByTestId('job-detail-location').innerText(),
+            advertiser,
+            location,
             keywords,
             classification: classifyJobKeywords(keywords),
             url,
