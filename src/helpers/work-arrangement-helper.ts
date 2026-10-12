@@ -8,7 +8,7 @@ const WORK_ARRANGEMENT_BY_TEXT: Record<string, WORK_ARRANGEMENT> = {
 export function workArrangementFromText(
     workArrangementText: string | undefined,
 ): WORK_ARRANGEMENT | undefined {
-    if (!workArrangementText) {
+    if (workArrangementText === undefined) {
         return undefined;
     }
 
