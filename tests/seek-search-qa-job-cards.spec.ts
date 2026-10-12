@@ -87,6 +87,6 @@ test('SEEK search and job classification', async ({ page }) => {
         }
     }
 
-    jobPages.sort((a, b) => a.classification.score - b.classification.score);
+    jobPages.sort((a, b) => a.keywordRelevance.score - b.keywordRelevance.score);
     jobPages.forEach((job) => { SeekJobPage.printJobPage(job); })
 });

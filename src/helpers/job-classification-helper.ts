@@ -1,6 +1,6 @@
 import { JOB_KEYWORD } from '../types/seek-search.js';
 
-export interface KeywordsClassification {
+export interface KeywordRelevance {
     score: number;
     /** Up to 3 keywords with the highest positive weights */
     topKeywords: JOB_KEYWORD[];
@@ -126,7 +126,7 @@ export const JOB_KEYWORD_WEIGHTS: Record<JOB_KEYWORD, number> = {
     [JOB_KEYWORD.ADOBE_INDESIGN]: STRONG_MISMATCH,
 };
 
-export function classifyJobKeywords(keywords: JOB_KEYWORD[]): KeywordsClassification {
+export function getKeywordRelevance(keywords: JOB_KEYWORD[]): KeywordRelevance {
     const scoredKeywords = keywords.map((keyword) => ({
         keyword,
         weight: JOB_KEYWORD_WEIGHTS[keyword],

@@ -1,9 +1,9 @@
 import { JOB_KEYWORD } from '../types/seek-search.js';
 import { extractJobKeywords } from '../helpers/keyword-helper.js';
-import { classifyJobKeywords } from '../helpers/job-classification-helper.js';
+import { getKeywordRelevance } from '../helpers/job-classification-helper.js';
 
 import type { Locator, Page } from '@playwright/test';
-import type { KeywordsClassification } from '../helpers/job-classification-helper.js';
+import type { KeywordRelevance } from '../helpers/job-classification-helper.js';
 
 export interface JobPage {
     title: string;
@@ -18,8 +18,8 @@ export interface JobPage {
     };
     description: string;
     keywords: JOB_KEYWORD[];
-    classification: KeywordsClassification;
     url: string | null;
+    keywordRelevance: KeywordRelevance;
 }
 
 export class SeekJobPage {
@@ -67,8 +67,8 @@ export class SeekJobPage {
             advertiser,
             location,
             keywords,
-            classification: classifyJobKeywords(keywords),
             url,
+            keywordRelevance: getKeywordRelevance(keywords),
         };
 
         return this.jobPage;
@@ -91,12 +91,12 @@ export class SeekJobPage {
   Description: '${descriptionPreview}'
   Location: ${job.location}
   Keywords: [ ${job.keywords.join(', ')} ]
-  Classification: {
-    score: ${job.classification.score}
-    topKeywords: [ ${job.classification.topKeywords.join(', ')} ]
-    bottomKeywords: [ ${job.classification.bottomKeywords.join(', ')} ]
-  }
   URL: ${job.url ?? 'N/A'}
+  Keyword relevance: {
+    score: ${job.keywordRelevance.score}
+    topKeywords: [ ${job.keywordRelevance.topKeywords.join(', ')} ]
+    bottomKeywords: [ ${job.keywordRelevance.bottomKeywords.join(', ')} ]
+  }
 }`;
 
         console.log(output);
