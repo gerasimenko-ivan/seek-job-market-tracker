@@ -133,12 +133,12 @@ export class SeekSearchPage {
         // BEGIN workaround: SEEK may ignore Type-filter clicks while the search UI is settling.
         let isPanelVisible = false;
         for (let i = 0; i < 20; i++) {
-            await this.page.waitForTimeout(500);
+            await this.page.waitForTimeout(400);
             await this.workTypeButton.click();
+            await this.page.waitForTimeout(100);
             isPanelVisible = await this.workTypeOption(type).isVisible({
                 timeout: 0,
             });
-            console.log(`${i} - ${isPanelVisible}`);
             if (isPanelVisible) {
                 break;
             }
