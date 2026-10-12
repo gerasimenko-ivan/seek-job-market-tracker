@@ -205,20 +205,25 @@ export class SeekSearchPage {
 
         let totalJobsMessage: string | null;
         let totalJobs: number;
-        if (searchResult === 'NO_RESULTS') {
-            totalJobsMessage = FILTER_MESSAGE.NO_RESULTS;
-            totalJobs = 0;
-        } else if (searchResult === 'JOBS_FOUND') {
-            totalJobsMessage = await this.totalJobsMessage.textContent();
-            totalJobs = parseJobsCount(totalJobsMessage);
-        } else if (searchResult === 'JOBS_FOUND_2') {
-            totalJobsMessage = await this.totalJobsMessage2.textContent();
-            totalJobs = parseJobsCount(totalJobsMessage);
-        } else {
-            throw new Error(`Unexpected search result: '${searchResult}'`);
+        switch (searchResult) {
+            case 'NO_RESULTS':
+                totalJobsMessage = FILTER_MESSAGE.NO_RESULTS;
+                totalJobs = 0;
+                break;
+            case 'JOBS_FOUND':
+                totalJobsMessage = await this.totalJobsMessage.textContent();
+                totalJobs = parseJobsCount(totalJobsMessage);
+                break;
+            case 'JOBS_FOUND_2':
+                totalJobsMessage = await this.totalJobsMessage2.textContent();
+                totalJobs = parseJobsCount(totalJobsMessage);
+                break;
+            default:
+                throw new Error(`Unexpected search result: '${searchResult}'`);
         }
 
         if (params?.printLogs) {
+            console.log(`----------------`);
             console.log(`URL: ${url}`);
             console.log('Keywords input:', keywords);
             console.log('Where input:', location);
@@ -227,6 +232,7 @@ export class SeekSearchPage {
             console.log('Type:', type);
             console.log(`Total Jobs Message: ${totalJobsMessage}`);
             console.log(`Total Jobs: ${totalJobs}`);
+            console.log(`----------------`);
         }
 
         return {
