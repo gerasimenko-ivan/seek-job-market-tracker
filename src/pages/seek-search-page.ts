@@ -247,18 +247,26 @@ export class SeekSearchPage {
         // TODO: replace fixed wait with proper synchronization
         await this.page.waitForTimeout(1000);
 
-        return Promise.race([
-            this.totalJobsMessage
-                .waitFor({ state: 'visible', timeout: 15000 })
-                .then(() => 'JOBS_FOUND' as const),
+        const timeout = 10000;
 
-            this.totalJobsMessage2
-                .waitFor({ state: 'visible', timeout: 15000 })
-                .then(() => 'JOBS_FOUND_2' as const),
+        try {
+            return await Promise.any([
+                this.totalJobsMessage
+                    .waitFor({ state: 'visible', timeout })
+                    .then(() => 'JOBS_FOUND' as const),
 
-            this.filterMessageNoResults
-                .waitFor({ state: 'visible', timeout: 15000 })
-                .then(() => 'NO_RESULTS' as const),
-        ]);
+                this.totalJobsMessage2
+                    .waitFor({ state: 'visible', timeout })
+                    .then(() => 'JOBS_FOUND_2' as const),
+
+                this.filterMessageNoResults
+                    .waitFor({ state: 'visible', timeout })
+                    .then(() => 'NO_RESULTS' as const),
+            ]);
+        } catch {
+            throw new Error(
+                `No recognized search result state became visible within ${timeout} ms.`,
+            );
+        }
     }
 }
