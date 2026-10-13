@@ -1,0 +1,10 @@
+export const KEYWORD_WEIGHT = {
+    STRONG_MATCH: 11,
+    GOOD_MATCH: 7,
+    RELEVANT: 5,
+    SUPPLEMENTARY: 3,
+    MINOR_MATCH: 1,
+    NEUTRAL: 0,
+    MISMATCH: -5,
+    STRONG_MISMATCH: -11
+} as const;

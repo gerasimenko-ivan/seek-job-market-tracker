@@ -1,0 +1,193 @@
+import { KEYWORD_WEIGHT } from './keyword-weight.js';
+
+export enum QA_JOB_KEYWORD {
+    // Programming languages
+    TYPESCRIPT = 'TypeScript',
+    JAVASCRIPT = 'JavaScript',
+    JAVA = 'Java',
+    C_SHARP = 'C#',
+    PYTHON = 'Python',
+
+    // Test automation
+    PLAYWRIGHT = 'Playwright',
+    SELENIUM = 'Selenium',
+    CYPRESS = 'Cypress',
+    TEST_NG = 'TestNG',
+    J_UNIT = 'JUnit',
+    TRICENTIS_TOSCA = 'Tricentis TOSCA',
+    CUCUMBER = 'Cucumber', // BDD automation framework
+    ESPRESSO = 'Espresso', // Android testing framework
+    UI_AUTOMATOR = 'UI Automator', // black-box UI testing on Android
+    APPIUM = 'Appium', // UI automation of many app platforms, including mobile (iOS, Android, ...)
+
+    // Test tools
+    POSTMAN = 'Postman',
+    JMETER = 'JMeter',
+
+    // Test management & defect tracking
+    JIRA = 'Jira',
+    HP_ALM = 'HP ALM',
+    TEST_RAIL = 'TestRail',
+    XRAY = 'Xray',
+    ZEPHYR = 'Zephyr',
+    QTEST = 'qTest',
+
+    // Technical skills
+    API = 'API',
+    SQL = 'SQL',
+
+    // Version control & collaboration
+    GIT = 'Git',
+    GITHUB = 'GitHub',
+    GITLAB = 'GitLab',
+
+    // CI/CD & DevOps
+    CI_CD = 'CI/CD',
+    JENKINS = 'Jenkins',
+    BAMBOO = 'Bamboo',
+    GITHUB_ACTIONS = 'GitHub Actions',
+    GITLAB_CI = 'GitLab CI',
+    AZURE_DEVOPS = 'Azure DevOps',
+
+    // Documentation & collaboration
+    CONFLUENCE = 'Confluence',
+    SHAREPOINT = 'SharePoint',
+    NOTION = 'Notion',
+
+    // Platforms & environments
+    UI_TESTING = 'UI testing',
+    MOBILE = 'Mobile',
+    MOBILE_APP_TESTING = 'Mobile app testing',
+    ANDROID = 'Android',
+    IOS = 'iOS',
+    HARDWARE = 'hardware',
+
+    // Enterprise software / business systems
+    DOT_NET = '.NET',
+    NODE_JS = 'NodeJS',
+    JAVA_SPRINGBOOT = 'Java SpringBoot',
+    SAP = 'SAP',
+    ERP = 'ERP',
+
+    // Testing practices
+    TEST_CASES = 'test cases',
+    TEST_PLANS = 'test plans',
+    UAT = 'UAT',
+    AI_DRIVEN_TESTING = 'AI-driven testing',
+    AI_ASSISTED_TESTING = 'AI-assisted testing',
+
+    // Job seniority / role
+    SENIOR = 'senior',
+    LEAD = 'lead',
+    TEST_ANALYST = 'test analyst',
+    ANALYST_TESTER = 'analyst tester',
+    TEST_MANAGER = 'test manager',
+
+    // Employment conditions
+    FIXED_TERM = 'fixed term',
+    PERMANENT = 'permanent',
+
+    // Other job characteristics
+    SUPPORT247 = '24 x 7 on-call support',
+    CERTIFICATE = 'Relevant technology certification',
+
+    // Non-QA / non-IT technologies
+    SOLID_WORKS_CAD = 'SolidWorks CAD',
+    ADOBE_INDESIGN = 'Adobe InDesign',
+}
+
+export const QA_JOB_KEYWORD_WEIGHTS: Record<QA_JOB_KEYWORD, number> = {
+    // Programming languages
+    [QA_JOB_KEYWORD.TYPESCRIPT]: KEYWORD_WEIGHT.STRONG_MATCH,
+    [QA_JOB_KEYWORD.JAVASCRIPT]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.JAVA]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.C_SHARP]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.PYTHON]: KEYWORD_WEIGHT.RELEVANT,
+
+    // Test automation
+    [QA_JOB_KEYWORD.PLAYWRIGHT]: KEYWORD_WEIGHT.STRONG_MATCH,
+    [QA_JOB_KEYWORD.SELENIUM]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.CYPRESS]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.TEST_NG]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.J_UNIT]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.TRICENTIS_TOSCA]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.CUCUMBER]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.ESPRESSO]: KEYWORD_WEIGHT.MISMATCH,
+    [QA_JOB_KEYWORD.UI_AUTOMATOR]: KEYWORD_WEIGHT.MISMATCH,
+    [QA_JOB_KEYWORD.APPIUM]: KEYWORD_WEIGHT.MISMATCH,
+
+    // Test tools
+    [QA_JOB_KEYWORD.POSTMAN]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.JMETER]: KEYWORD_WEIGHT.GOOD_MATCH,
+
+    // Test management & defect tracking
+    [QA_JOB_KEYWORD.JIRA]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.HP_ALM]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.TEST_RAIL]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.XRAY]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.ZEPHYR]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.QTEST]: KEYWORD_WEIGHT.NEUTRAL,
+
+    // Technical skills
+    [QA_JOB_KEYWORD.API]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.SQL]: KEYWORD_WEIGHT.GOOD_MATCH,
+
+    // Version control & collaboration
+    [QA_JOB_KEYWORD.GIT]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.GITHUB]: KEYWORD_WEIGHT.STRONG_MATCH,
+    [QA_JOB_KEYWORD.GITLAB]: KEYWORD_WEIGHT.STRONG_MATCH,
+
+    // CI/CD & DevOps
+    [QA_JOB_KEYWORD.CI_CD]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.JENKINS]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.BAMBOO]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.GITHUB_ACTIONS]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.GITLAB_CI]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.AZURE_DEVOPS]: KEYWORD_WEIGHT.RELEVANT,
+
+    // Documentation & collaboration
+    [QA_JOB_KEYWORD.CONFLUENCE]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.SHAREPOINT]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.NOTION]: KEYWORD_WEIGHT.SUPPLEMENTARY,
+
+    // Platforms & environments
+    [QA_JOB_KEYWORD.UI_TESTING]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.MOBILE]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.MOBILE_APP_TESTING]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.ANDROID]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.IOS]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.HARDWARE]: KEYWORD_WEIGHT.MISMATCH,
+
+    // Enterprise software / business systems / environments
+    [QA_JOB_KEYWORD.DOT_NET]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.NODE_JS]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.JAVA_SPRINGBOOT]: KEYWORD_WEIGHT.SUPPLEMENTARY,
+    [QA_JOB_KEYWORD.SAP]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.ERP]: KEYWORD_WEIGHT.NEUTRAL,
+
+    // Testing practices
+    [QA_JOB_KEYWORD.TEST_CASES]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.TEST_PLANS]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.UAT]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.AI_DRIVEN_TESTING]: KEYWORD_WEIGHT.GOOD_MATCH,
+    [QA_JOB_KEYWORD.AI_ASSISTED_TESTING]: KEYWORD_WEIGHT.GOOD_MATCH,
+
+    // Job seniority / role
+    [QA_JOB_KEYWORD.SENIOR]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.LEAD]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.TEST_ANALYST]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.ANALYST_TESTER]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.TEST_MANAGER]: KEYWORD_WEIGHT.RELEVANT,
+
+    // Employment conditions
+    [QA_JOB_KEYWORD.FIXED_TERM]: KEYWORD_WEIGHT.NEUTRAL,
+    [QA_JOB_KEYWORD.PERMANENT]: KEYWORD_WEIGHT.NEUTRAL,
+
+    // Other job characteristics
+    [QA_JOB_KEYWORD.SUPPORT247]: KEYWORD_WEIGHT.STRONG_MISMATCH,
+    [QA_JOB_KEYWORD.CERTIFICATE]: KEYWORD_WEIGHT.STRONG_MISMATCH,
+
+    // Non-QA / non-IT technologies
+    [QA_JOB_KEYWORD.SOLID_WORKS_CAD]: KEYWORD_WEIGHT.STRONG_MISMATCH,
+    [QA_JOB_KEYWORD.ADOBE_INDESIGN]: KEYWORD_WEIGHT.STRONG_MISMATCH
+};

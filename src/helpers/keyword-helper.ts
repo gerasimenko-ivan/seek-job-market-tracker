@@ -1,9 +1,13 @@
-import { JOB_KEYWORD } from '../types/seek-search.js';
+interface ExtractJobKeywords<T extends string> {
+    text: string;
+    keywords: T[];
+}
 
-export function extractJobKeywords(text: string): JOB_KEYWORD[] {
+export function extractJobKeywords<T extends string>(param: ExtractJobKeywords<T>): T[] {
+    const { text, keywords } = param;
     const normalizedText = normalizeKeywordText(text);
 
-    return Object.values(JOB_KEYWORD).filter((keyword) => {
+    return Object.values(keywords).filter((keyword) => {
         const normalizedKeyword = normalizeKeywordText(keyword);
 
         return new RegExp(

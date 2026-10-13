@@ -13,7 +13,7 @@ import {
 } from '../src/types/seek-search';
 import { JobPage, SeekJobPage } from '../src/pages/seek-job-page';
 
-test('SEEK search and job classification', async ({ page }) => {
+test('SEEK search and job classification: qa', async ({ page }) => {
     test.setTimeout(60000);
 
     const search: SearchParams = {
