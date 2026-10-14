@@ -15,54 +15,18 @@ const commonSearchParams: Omit<
 defineJobMarketTests([
     {
         searchParamsWithoutSalary: {
-            keywords: ['GCP'],
+            keywords: ['associate'],
             location: 'All Auckland',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/clinical-research/seek-job-gcp-auck.csv',
+        outputFile: 'output/csv/clinical-research/seek-job-associate-auck.csv',
     },
     {
         searchParamsWithoutSalary: {
-            keywords: ['GCP'],
+            keywords: ['associate'],
             location: 'All New Zealand',
             ...commonSearchParams,
         },
-        outputFile: 'output/csv/clinical-research/seek-job-gcp-nz.csv',
-    },
-    {
-        searchParamsWithoutSalary: {
-            keywords: ['clinical trials'],
-            location: 'All Auckland',
-            ...commonSearchParams,
-        },
-        outputFile:
-            'output/csv/clinical-research/seek-job-clinical-trials-auck.csv',
-    },
-    {
-        searchParamsWithoutSalary: {
-            keywords: ['clinical trials'],
-            location: 'All New Zealand',
-            ...commonSearchParams,
-        },
-        outputFile:
-            'output/csv/clinical-research/seek-job-clinical-trials-nz.csv',
-    },
-    {
-        searchParamsWithoutSalary: {
-            keywords: ['clinical research associate'],
-            location: 'All Auckland',
-            ...commonSearchParams,
-        },
-        outputFile:
-            'output/csv/clinical-research/seek-job-cr-associate-auck.csv',
-    },
-    {
-        searchParamsWithoutSalary: {
-            keywords: ['clinical research associate'],
-            location: 'All New Zealand',
-            ...commonSearchParams,
-        },
-        outputFile:
-            'output/csv/clinical-research/seek-job-cr-associate-nz.csv',
+        outputFile: 'output/csv/clinical-research/seek-job-associate-nz.csv',
     },
 ]);

@@ -18,7 +18,7 @@ test('SEEK search and job classification: clinical research', async ({ page }) =
     test.setTimeout(60000);
 
     const search: SearchParams = {
-        keywords: ['clinical'],
+        keywords: ['associate'],
         location: 'All New Zealand',
         type: JOB_TYPE.FULL_TIME,
         salary: {
