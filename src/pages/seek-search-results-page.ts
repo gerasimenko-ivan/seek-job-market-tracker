@@ -74,7 +74,7 @@ export class SeekSearchResultsPage {
             shortDescription,
             keywords: extractJobKeywords({
                 text: `${title} ${shortDescription}`,
-                keywords: QA_JOB_KEYWORD,
+                keywords: Object.values(QA_JOB_KEYWORD),
             }),
         };
     }
@@ -99,7 +99,7 @@ export class SeekSearchResultsPage {
         return this.paginationOfResults.isVisible();
     }
 
-    async getResultPagesCount(): Promise<number> {
+    async getResultPageButtonCount(): Promise<number> {
         return this.resultPages.count();
     }
 

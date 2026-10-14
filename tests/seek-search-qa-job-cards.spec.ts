@@ -11,10 +11,11 @@ import {
     SALARY_PERIOD,
     SearchParams,
 } from '../src/types/seek-search';
-import { JobPage, SeekJobPage } from '../src/pages/seek-job-page';
+import { type JobPage, SeekJobPage } from '../src/pages/seek-job-page';
+import { QA_JOB_KEYWORD, QA_JOB_KEYWORD_WEIGHTS } from '../src/data/keyword-qa';
 
 test('SEEK search and job classification: qa', async ({ page }) => {
-    test.setTimeout(60000);
+    test.setTimeout(100000);
 
     const search: SearchParams = {
         // keywords: ['typescript', 'playwright'],
@@ -34,7 +35,13 @@ test('SEEK search and job classification: qa', async ({ page }) => {
 
     const seekSearch = new SeekSearchPage(page);
     const seekResults = new SeekSearchResultsPage(page);
-    const seekJob = new SeekJobPage(page);
+    const seekJob = new SeekJobPage<QA_JOB_KEYWORD>({
+        page,
+        keywordProfile: {
+            keywords: QA_JOB_KEYWORD,
+            weights: QA_JOB_KEYWORD_WEIGHTS,
+        },
+    });
 
     await seekSearch.search(search);
 
@@ -48,24 +55,19 @@ test('SEEK search and job classification: qa', async ({ page }) => {
 
     const firstPageJobCardCount = await seekResults.getJobCardCount();
     const isPaginationVisible = await seekResults.isPaginationVisible();
-    const resultPagesCount = isPaginationVisible
-        ? await seekResults.getResultPagesCount()
-        : 1;
+    const resultPageButtonCount = await seekResults.getResultPageButtonCount();
+    const resultPageCount = isPaginationVisible ? resultPageButtonCount : 1;
 
     expect(firstPageJobCardCount).toBeGreaterThan(0);
 
     console.log(`firstPageJobCardCount: ${firstPageJobCardCount}`);
-    console.log(
-        `isPaginationVisible: ${await seekResults.isPaginationVisible()}`,
-    );
-    console.log(
-        `getResultPagesCount: ${await seekResults.getResultPagesCount()}`,
-    );
-    console.log(`Result pages: ${resultPagesCount}`);
+    console.log(`isPaginationVisible: ${isPaginationVisible}`);
+    console.log(`resultPageButtonCount: ${resultPageButtonCount}`);
+    console.log(`Result pages: ${resultPageCount}`);
 
     const jobPages: JobPage[] = [];
 
-    for (let pageIndex = 0; pageIndex < resultPagesCount; pageIndex++) {
+    for (let pageIndex = 0; pageIndex < resultPageCount; pageIndex++) {
         if (pageIndex > 0) {
             console.log(`Processing page ${pageIndex + 1}`);
 

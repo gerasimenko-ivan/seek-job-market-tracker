@@ -1,11 +1,10 @@
 import { extractJobKeywords } from '../helpers/keyword-helper.js';
 import { getKeywordRelevance } from '../helpers/job-classification-helper.js';
-import { QA_JOB_KEYWORD, QA_JOB_KEYWORD_WEIGHTS } from '../data/keyword-qa.js';
 
 import type { Locator, Page } from '@playwright/test';
 import type { KeywordRelevance } from '../helpers/job-classification-helper.js';
 
-export interface JobPage<T extends string> {
+export interface JobPage<T extends string = string> {
     title: string;
     advertiser: string;
     location: string;
@@ -22,17 +21,32 @@ export interface JobPage<T extends string> {
     keywordRelevance: KeywordRelevance<T>;
 }
 
-export class SeekJobPage {
-    private jobPage?: JobPage<QA_JOB_KEYWORD>;
+interface KeywordProfile<T extends string> {
+    keywords: Record<string, T>;
+    weights: Readonly<Record<T, number>>;
+}
+
+interface SeekJobPageConfig<T extends string> {
+    page: Page;
+    keywordProfile: KeywordProfile<T>,
+}
+
+export class SeekJobPage<T extends string> {
+    private jobPage?: JobPage<T>;
 
     readonly page: Page;
+
+    readonly keywordProfile: KeywordProfile<T>;
 
     readonly job: Locator;
 
     readonly salaryUndisclosedIcon: Locator;
 
-    constructor(page: Page) {
+    constructor(param: SeekJobPageConfig<T>) {
+        const { page, keywordProfile } = param;
+
         this.page = page;
+        this.keywordProfile = keywordProfile
 
         this.job = page.getByTestId('jobDetailsPage');
 
@@ -41,7 +55,7 @@ export class SeekJobPage {
         );
     }
 
-    async updateJobPage(): Promise<JobPage<QA_JOB_KEYWORD>> {
+    async updateJobPage(): Promise<JobPage<T>> {
         const job = this.job;
 
         const title = await job.getByTestId('job-detail-title').innerText();
@@ -57,7 +71,7 @@ export class SeekJobPage {
 
         const keywords = extractJobKeywords({
             text: `${title} ${description}`,
-            keywords: QA_JOB_KEYWORD,
+            keywords: Object.values(this.keywordProfile.keywords),
         });
 
         const url = relativeUrl
@@ -73,18 +87,18 @@ export class SeekJobPage {
             url,
             keywordRelevance: getKeywordRelevance({
                 keywords: keywords,
-                weights: QA_JOB_KEYWORD_WEIGHTS,
+                weights: this.keywordProfile.weights,
             }),
         };
 
         return this.jobPage;
     }
 
-    async getJobPage(): Promise<JobPage<QA_JOB_KEYWORD>> {
+    async getJobPage(): Promise<JobPage<T>> {
         return this.jobPage ?? (await this.updateJobPage());
     }
 
-    static printJobPage(job: JobPage<QA_JOB_KEYWORD>): void {
+    static printJobPage(job: JobPage): void {
         const previewMaxLength = 100;
         const descriptionPreview =
             job.description.slice(0, previewMaxLength).replaceAll('\n', ' ') +
