@@ -1,8 +1,6 @@
 import { locationTypeFromText } from '../helpers/location-helper.js';
 import { LOCATION_TYPE, WORK_ARRANGEMENT } from '../types/seek-search.js';
 import { workArrangementFromText } from '../helpers/work-arrangement-helper.js';
-import { extractJobKeywords } from '../helpers/keyword-helper.js';
-import { QA_JOB_KEYWORD } from '../data/keyword-qa.js';
 
 import type { Locator, Page } from '@playwright/test';
 
@@ -13,7 +11,6 @@ export interface JobCard {
     locationType: LOCATION_TYPE;
     workArrangement?: WORK_ARRANGEMENT;
     shortDescription: string;
-    keywords: QA_JOB_KEYWORD[];
 }
 
 export class SeekSearchResultsPage {
@@ -72,10 +69,6 @@ export class SeekSearchResultsPage {
             locationType: locationTypeFromText(location),
             workArrangement: workArrangementFromText(workArrangementText),
             shortDescription,
-            keywords: extractJobKeywords({
-                text: `${title} ${shortDescription}`,
-                keywords: Object.values(QA_JOB_KEYWORD),
-            }),
         };
     }
 
