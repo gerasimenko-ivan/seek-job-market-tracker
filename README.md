@@ -85,3 +85,14 @@ npx playwright test tests/seek-search-clinical-research-job-cards.spec.ts --proj
 Why --project=chromium?
 
 This runs the test using the configured Chromium project, avoiding duplicate executions across other configured browser projects.
+
+## Configuration
+
+Search parameters (keywords, location, job type, salary, and classification) can be adjusted in the relevant test files under tests/.
+
+Keyword profiles and their relevance weights are defined in:
+
+- src/data/keyword-qa.ts
+- src/data/keyword-clinical-research.ts
+
+Weights determine how strongly matching keywords contribute to each job's relevance score.
