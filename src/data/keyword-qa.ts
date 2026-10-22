@@ -90,6 +90,7 @@ export enum QA_JOB_KEYWORD {
     // Other job characteristics
     AGILE = 'Agile',
     SCRUM = 'Scrum',
+    KANBAN = 'Kanban',
     SUPPORT247 = '24 x 7 on-call support',
     CERTIFICATE = 'Relevant technology certification',
 
@@ -188,6 +189,7 @@ export const QA_JOB_KEYWORD_WEIGHTS: Record<QA_JOB_KEYWORD, number> = {
     // Other job characteristics
     [QA_JOB_KEYWORD.AGILE]: KEYWORD_WEIGHT.RELEVANT,
     [QA_JOB_KEYWORD.SCRUM]: KEYWORD_WEIGHT.RELEVANT,
+    [QA_JOB_KEYWORD.KANBAN]: KEYWORD_WEIGHT.RELEVANT,
     [QA_JOB_KEYWORD.SUPPORT247]: KEYWORD_WEIGHT.STRONG_MISMATCH,
     [QA_JOB_KEYWORD.CERTIFICATE]: KEYWORD_WEIGHT.STRONG_MISMATCH,
 
