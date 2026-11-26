@@ -18,6 +18,7 @@ Purpose: Track how many jobs match specific search criteria, including salary ra
 Files
 - tests/seek-search-qa-jobs.spec.ts
 - tests/seek-search-clinical-research-jobs.spec.ts
+- tests/seek-search-qc-analyst-jobs.spec.ts
 
 Configurable parameters
 - Keywords
@@ -58,6 +59,12 @@ Run the clinical research job-market statistics:
 
 ```
 npx playwright test tests/seek-search-clinical-research-jobs.spec.ts --project=chromium --workers=1
+```
+
+Run the QC analyst job-market statistics:
+
+```
+npx playwright test tests/seek-search-qc-analyst-jobs.spec.ts --project=chromium --workers=1
 ```
 
 Why these options?
